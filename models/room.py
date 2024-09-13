@@ -16,9 +16,9 @@ class Room(ABC):
 
     def get_display(self) -> str:
         string = ""
-        string += "    Paint: " + str(self.paint) + "\n"
-        string += "    Lamp: " + str(self.lamp) + "\n"
-        string += "    Curio: " + str(self.curio) + "\n"
+        string += "    Paint:        " + str(self.paint) + "\n"
+        string += "    Lamp:         " + str(self.lamp) + "\n"
+        string += "    Curio:        " + str(self.curio) + "\n"
         string += "    Wall Hanging: " + str(self.wall_hanging) + "\n"
         return string
 

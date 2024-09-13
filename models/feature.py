@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import re
 
 
 class Feature(ABC):
@@ -7,7 +8,8 @@ class Feature(ABC):
     """
 
     def __repr__(self) -> str:
-        return self.__class__.__name__
+        cls_name = self.__class__.__name__
+        return re.sub(r"(\w)([A-Z])", r"\1 \2", cls_name)
 
     @staticmethod
     @abstractmethod
