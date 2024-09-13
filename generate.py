@@ -1,3 +1,4 @@
+from models.house import House
 from models.object import *
 from models.paint import *
 from models.color import *
@@ -8,3 +9,6 @@ print(a)
 
 b = Paint.get_random()
 print(b)
+
+house = House.get_random()
+print(house.get_display())

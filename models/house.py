@@ -16,3 +16,25 @@ class House:
         self.bathroom = Bathroom()
         self.living_room = LivingRoom()
         self.kitchen = Kitchen()
+
+    def get_display(self) -> str:
+        string = ""
+        string += "House:\n"
+        string += "  Bedroom:\n"
+        string += self.bedroom.get_display()
+        string += "  Bathroom:\n"
+        string += self.bathroom.get_display()
+        string += "  Living Room:\n"
+        string += self.living_room.get_display()
+        string += "  Kitchen:\n"
+        string += self.kitchen.get_display()
+        return string
+
+    @staticmethod
+    def get_random():
+        house = House()
+        house.bedroom = Bedroom.get_random()
+        house.bathroom = Bathroom.get_random()
+        house.living_room = LivingRoom.get_random()
+        house.kitchen = Kitchen.get_random()
+        return house
