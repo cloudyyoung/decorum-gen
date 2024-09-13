@@ -10,7 +10,7 @@ from models.feature import Feature
 class Object(Feature, ABC):
     @staticmethod
     def get_random(
-        object: Type["Lamp"] | Type["Curio"] | Type["WallHanging"] = None,
+        object_type: Type["Lamp"] | Type["Curio"] | Type["WallHanging"] = None,
         color: Type[Red] | Type[Green] | Type[Blue] | Type[Green] = None,
         style: Type[Modern] | Type[Antique] | Type[Retro] | Type[Unusual] = None,
     ) -> Self:
@@ -19,8 +19,8 @@ class Object(Feature, ABC):
         for subclass in Object.__subclasses__():
             subclasses.extend(subclass.__subclasses__())
 
-        if object:
-            subclasses = [cls for cls in subclasses if issubclass(cls, object)]
+        if object_type:
+            subclasses = [cls for cls in subclasses if issubclass(cls, object_type)]
 
         if color:
             subclasses = [cls for cls in subclasses if issubclass(cls, color)]

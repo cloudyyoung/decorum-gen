@@ -33,13 +33,13 @@ class Room(ABC):
         room.paint = Paint.get_random()
 
         if lamp_r <= 2:
-            room.lamp = Lamp.get_random()
+            room.lamp = Lamp.get_random(object_type=Lamp)
 
         if curio_r <= 2:
-            room.curio = Curio.get_random()
+            room.curio = Curio.get_random(object_type=Curio)
 
         if wall_hanging_r <= 2:
-            room.wall_hanging = WallHanging.get_random()
+            room.wall_hanging = WallHanging.get_random(object_type=WallHanging)
 
         return room
 
