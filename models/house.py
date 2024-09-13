@@ -38,3 +38,19 @@ class House:
         house.living_room = LivingRoom.get_random()
         house.kitchen = Kitchen.get_random()
         return house
+
+    @property
+    def left_side(self):
+        return self.bathroom.paint, self.living_room.paint
+
+    @property
+    def right_side(self):
+        return self.kitchen.paint, self.bedroom.paint
+
+    @property
+    def upstairs(self):
+        return self.bedroom.paint, self.bathroom.paint
+
+    @property
+    def downstairs(self):
+        return self.living_room.paint, self.kitchen.paint
