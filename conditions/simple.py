@@ -191,18 +191,29 @@ def generate_condition_contain_each_color(house: House):
     largest_no = max(no_red, no_green, no_blue, no_yellow)
 
     if smallest_no > 0:
-        condition_str = f"The house must contain at least {smallest_no} of each color."
+        if randint(0, 1):
+            times_str = number_to_times(smallest_no)
+            condition_str = f"The house must contain each color at least {times_str}."
+        else:
+            subject_str = format_object_text(smallest_no)
+            condition_str = f"The house must contain at least {smallest_no} {subject_str} of each color."
         conditions.append(Condition(condition_str, 3))
 
     if largest_no > 0:
-        condition_str = f"The house must contain at most {largest_no} of each color."
+        subject_str = format_object_text(largest_no)
+        condition_str = (
+            f"The house must contain at most {largest_no} {subject_str} of each color."
+        )
         conditions.append(Condition(condition_str, 3))
 
     if no_red == no_green == no_blue == no_yellow:
         condition_str = "The house must contain the same number of each color."
         conditions.append(Condition(condition_str, 4))
 
-        condition_str = f"The house must contain exactly {no_red} of each color."
+        subject_str = format_object_text(no_red)
+        condition_str = (
+            f"The house must contain exactly {no_red} {subject_str} of each color."
+        )
         conditions.append(Condition(condition_str, 3))
 
     return conditions
