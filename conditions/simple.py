@@ -1,4 +1,5 @@
 from itertools import product
+from conditions.utils import format_subject
 from constants.objects import ObjectTypes
 from constants.styles import Styles
 from models.color import *
@@ -28,71 +29,47 @@ def generate_conditions_the_house_contains(house: House):
     conditions: list[Condition] = []
     QUANTIFIERS = ["at least", "at most", "exactly"]
 
-    no_objects = house.count_objects()
-    for quantifier in QUANTIFIERS:
-        conditions.append(
-            Condition(f"The house must contain {quantifier} {no_objects} objects.", 1)
-        )
+    def generate_condition(quantity, object_type=None, color=None, style=None):
+        point_value = 3 - [object_type, color, style].count(None)
+        subject_str = format_subject(quantity, object_type, color, style)
+
+        if quantity == 0:
+            condition_str = f"The house must contain no {subject_str}."
+            condition = Condition(condition_str, point_value)
+            conditions.append(condition)
+        else:
+            for quantifier in QUANTIFIERS:
+                condition_str = (
+                    f"The house must contain {quantifier} {quantity} {subject_str}."
+                )
+                condition = Condition(condition_str, point_value)
+                conditions.append(condition)
+
+    generate_condition(house.count_objects())
 
     for color in list(Colors):
         no_objects = house.count_objects(color=color)
-        for quantifier in QUANTIFIERS:
-            conditions.append(
-                Condition(
-                    f"The house must contain {quantifier} {no_objects} {color} objects.",
-                    2,
-                )
-            )
+        generate_condition(no_objects, color=color)
 
     for style in list(Styles):
         no_objects = house.count_objects(style=style)
-        for quantifier in QUANTIFIERS:
-            conditions.append(
-                Condition(
-                    f"The house must contain {quantifier} {no_objects} {style} objects.",
-                    2,
-                )
-            )
+        generate_condition(no_objects, style=style)
 
     for object_type in list(ObjectTypes):
         no_objects = house.count_objects(object_type=object_type)
-        for quantifier in QUANTIFIERS:
-            conditions.append(
-                Condition(
-                    f"The house must contain {quantifier} {no_objects} {object_type}(s).",
-                    2,
-                )
-            )
+        generate_condition(no_objects, object_type=object_type)
 
-    for color, style in zip(list(Colors), list(Styles)):
+    for color, style in product(list(Colors), list(Styles)):
         no_objects = house.count_objects(color=color, style=style)
-        for quantifier in QUANTIFIERS:
-            conditions.append(
-                Condition(
-                    f"The house must contain {quantifier} {no_objects} {color} {style} objects.",
-                    2,
-                )
-            )
+        generate_condition(no_objects, color=color, style=style)
 
-    for color, object_type in zip(list(Colors), list(ObjectTypes)):
+    for color, object_type in product(list(Colors), list(ObjectTypes)):
         no_objects = house.count_objects(color=color, object_type=object_type)
-        for quantifier in QUANTIFIERS:
-            conditions.append(
-                Condition(
-                    f"The house must contain {quantifier} {no_objects} {color} {object_type}(s).",
-                    2,
-                )
-            )
+        generate_condition(no_objects, color=color, object_type=object_type)
 
     for style, object_type in product(list(Styles), list(ObjectTypes)):
         no_objects = house.count_objects(style=style, object_type=object_type)
-        for quantifier in QUANTIFIERS:
-            conditions.append(
-                Condition(
-                    f"The house must contain {quantifier} {no_objects} {style} {object_type}(s).",
-                    2,
-                )
-            )
+        generate_condition(no_objects, style=style, object_type=object_type)
 
     for color, style, object_type in product(
         list(Colors), list(Styles), list(ObjectTypes)
@@ -100,14 +77,9 @@ def generate_conditions_the_house_contains(house: House):
         no_objects = house.count_objects(
             color=color, style=style, object_type=object_type
         )
-        for quantifier in QUANTIFIERS:
-            conditions.append(
-                Condition(
-                    f"The house must contain {quantifier} {no_objects} {color} {style} {object_type}(s).",
-                    3,
-                )
-            )
-
+        generate_condition(
+            no_objects, color=color, style=style, object_type=object_type
+        )
     return conditions
 
 
