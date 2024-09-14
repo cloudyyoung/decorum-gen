@@ -2,7 +2,7 @@ from models.room import Bedroom, Bathroom, LivingRoom, Kitchen
 from models.room_group import RoomGroup
 
 
-class House:
+class House(RoomGroup):
     """
     House board.
     """
@@ -17,6 +17,10 @@ class House:
         self.bathroom = Bathroom()
         self.living_room = LivingRoom()
         self.kitchen = Kitchen()
+
+    @property
+    def rooms(self):
+        return [self.bedroom, self.bathroom, self.living_room, self.kitchen]
 
     def get_display(self) -> str:
         string = ""
