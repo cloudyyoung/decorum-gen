@@ -29,8 +29,14 @@ class RoomGroup:
 
     def count_objects(
         self,
-        object_type: Type[Lamp] | Type[Curio] | Type[WallHanging] = None,
-        color: Type[Red] | Type[Green] | Type[Blue] | Type[Green] = None,
-        style: Type[Modern] | Type[Antique] | Type[Retro] | Type[Unusual] = None,
+        object_type: ObjectTypes = None,
+        color: Colors = None,
+        style: Styles = None,
     ):
         return len(self.get_objects(object_type=object_type, color=color, style=style))
+
+    def is_empty(self):
+        return all([room.is_empty() for room in self.rooms])
+
+    def count_empty(self):
+        return len([room for room in self.rooms if room.is_empty()])
