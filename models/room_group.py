@@ -2,12 +2,17 @@ from models.room import *
 
 
 class RoomGroup:
+    room_group_name: str = None
     rooms: list[Room] = []
 
-    def __init__(self, *rooms, **krooms) -> None:
+    def __init__(self, room_group_name: str, *rooms, **krooms) -> None:
+        self.room_group_name = room_group_name
         self.rooms = list(rooms)
         for _, room in krooms.items():
             self.rooms.append(room)
+
+    def __str__(self) -> str:
+        return self.room_group_name
 
     def get_objects(
         self,

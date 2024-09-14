@@ -29,12 +29,16 @@ class House(RoomGroup):
         self.kitchen = Kitchen()
 
         self.rooms = [self.bedroom, self.bathroom, self.living_room, self.kitchen]
-        self.upstairs = RoomGroup(self.bathroom, self.bedroom)
-        self.downstairs = RoomGroup(self.living_room, self.kitchen)
-        self.left_side = RoomGroup(self.bathroom, self.living_room)
-        self.right_side = RoomGroup(self.bedroom, self.kitchen)
-        self.top_left_and_bottom_right = RoomGroup(self.bathroom, self.kitchen)
-        self.top_right_and_bottom_left = RoomGroup(self.bedroom, self.living_room)
+        self.upstairs = RoomGroup("upstairs", self.bathroom, self.bedroom)
+        self.downstairs = RoomGroup("downstairs", self.living_room, self.kitchen)
+        self.left_side = RoomGroup("left side", self.bathroom, self.living_room)
+        self.right_side = RoomGroup("right side", self.bedroom, self.kitchen)
+        self.top_left_and_bottom_right = RoomGroup(
+            "top left and bottom right rooms", self.bathroom, self.kitchen
+        )
+        self.top_right_and_bottom_left = RoomGroup(
+            "top right and bottom left rooms", self.bedroom, self.living_room
+        )
 
         self.room_groups = [
             self.upstairs,

@@ -1,3 +1,4 @@
+from pprint import pprint
 from models.house import House
 from models.object import *
 from models.paint import *
@@ -11,7 +12,7 @@ house.get_random()
 print(house.get_display())
 
 conds = generate_conditions_empty_or_not_empty(house)
-print(conds)
+pprint(conds)
 
 conds = generate_conditions_the_house_contains(house)
-print(conds)
+pprint(conds)

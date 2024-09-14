@@ -12,17 +12,11 @@ def generate_conditions_empty_or_not_empty(house: House):
         else:
             conditions.append(Condition(f"The {room} must be empty.", 1))
 
-    # Upstairs
-    if house.upstairs.count_objects() > 0:
-        conditions.append(Condition("The upstairs must not be empty.", 1))
-    else:
-        conditions.append(Condition("The upstairs must be empty.", 1))
-
-    # Downstairs
-    if house.downstairs.count_objects() > 0:
-        conditions.append(Condition("The downstairs must not be empty.", 1))
-    else:
-        conditions.append(Condition("The downstairs must be empty.", 1))
+    for room_group in house.room_groups:
+        if room_group.count_objects() > 0:
+            conditions.append(Condition(f"The {room_group} must not be empty.", 1))
+        else:
+            conditions.append(Condition(f"The {room_group} must be empty.", 1))
 
     return conditions
 
