@@ -1,4 +1,4 @@
-from models.room import Bedroom, Bathroom, LivingRoom, Kitchen
+from models.room import Bedroom, Bathroom, LivingRoom, Kitchen, Room
 from models.room_group import RoomGroup
 
 
@@ -12,37 +12,27 @@ class House(RoomGroup):
     living_room: LivingRoom = None
     kitchen: Kitchen = None
 
+    rooms: list[Room] = None
+
     def __init__(self):
         self.bedroom = Bedroom()
         self.bathroom = Bathroom()
         self.living_room = LivingRoom()
         self.kitchen = Kitchen()
-
-    @property
-    def rooms(self):
-        return [self.bedroom, self.bathroom, self.living_room, self.kitchen]
+        self.rooms = [self.bedroom, self.bathroom, self.living_room, self.kitchen]
 
     def get_display(self) -> str:
         string = ""
-        string += "House:\n"
-        string += "  Bedroom:\n"
-        string += self.bedroom.get_display()
-        string += "  Bathroom:\n"
-        string += self.bathroom.get_display()
-        string += "  Living Room:\n"
-        string += self.living_room.get_display()
-        string += "  Kitchen:\n"
-        string += self.kitchen.get_display()
+        for room in self.rooms:
+            string += str(room) + "\n"
+            string += room.get_display() + "\n"
         return string
 
-    @staticmethod
-    def get_random():
-        house = House()
-        house.bedroom = Bedroom.get_random()
-        house.bathroom = Bathroom.get_random()
-        house.living_room = LivingRoom.get_random()
-        house.kitchen = Kitchen.get_random()
-        return house
+    def get_random(self):
+        self.bedroom.get_random()
+        self.bathroom.get_random()
+        self.living_room.get_random()
+        self.kitchen.get_random()
 
     @property
     def left_side(self):

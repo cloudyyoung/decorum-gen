@@ -12,10 +12,14 @@ class Room(ABC):
     House Room.
     """
 
+    room_name: str = None
     paint: Paint = None
     lamp: Lamp = None
     curio: Curio = None
     wall_hanging: WallHanging = None
+
+    def __init__(self, room_name):
+        self.room_name = room_name
 
     def get_objects(
         self,
@@ -51,35 +55,38 @@ class Room(ABC):
         string += "    Wall Hanging: " + str(self.wall_hanging) + "\n"
         return string
 
-    @staticmethod
-    def get_random():
-        room = Room()
+    def __str__(self) -> str:
+        return self.room_name
 
+    def get_random(self):
         lamp_r = randint(0, 4)
         curio_r = randint(0, 4)
         wall_hanging_r = randint(0, 4)
 
-        room.paint = Paint.get_random()
-
+        self.paint = Paint.get_random()
         if lamp_r <= 2:
-            room.lamp = Lamp.get_random(object_type=Lamp)
-
+            self.lamp = Lamp.get_random(object_type=Lamp)
         if curio_r <= 2:
-            room.curio = Curio.get_random(object_type=Curio)
-
+            self.curio = Curio.get_random(object_type=Curio)
         if wall_hanging_r <= 2:
-            room.wall_hanging = WallHanging.get_random(object_type=WallHanging)
-
-        return room
+            self.wall_hanging = WallHanging.get_random(object_type=WallHanging)
 
 
-class Bathroom(Room): ...
+class Bathroom(Room):
+    def __init__(self):
+        super().__init__("Bathroom")
 
 
-class Bedroom(Room): ...
+class Bedroom(Room):
+    def __init__(self):
+        super().__init__("Bedroom")
 
 
-class LivingRoom(Room): ...
+class LivingRoom(Room):
+    def __init__(self):
+        super().__init__("Living Room")
 
 
-class Kitchen(Room): ...
+class Kitchen(Room):
+    def __init__(self):
+        super().__init__("Kitchen")
