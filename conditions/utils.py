@@ -14,7 +14,7 @@ def format_object_text(quantity: int, object_type=None, color=None, style=None):
             subject += " object"
         else:
             subject += " objects"
-    return subject.strip()
+    return subject.strip().capitalize()
 
 
 def number_to_times(quantity: int):
