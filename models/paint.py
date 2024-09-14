@@ -7,7 +7,7 @@ from models.feature import Feature
 
 
 class Paint(Feature, ABC):
-    color: Colors = None
+    color: Colors
 
     def __eq__(self, other: Self) -> bool:
         return self.color == other.color

@@ -11,9 +11,9 @@ from models.feature import Feature
 
 
 class Object(Feature, ABC):
-    object_type: ObjectTypes = None
-    color: Colors = None
-    style: Styles = None
+    object_type: ObjectTypes
+    color: Colors
+    style: Styles
 
     def __eq__(self, other: Self) -> bool:
         return (
@@ -21,9 +21,16 @@ class Object(Feature, ABC):
             and self.color == other.color
             and self.style == other.style
         )
-    
+
     def __hash__(self) -> int:
         return hash((self.object_type, self.color, self.style))
+
+    @staticmethod
+    def get_object_classes() -> list[Type[Self]]:
+        subclasses = []
+        for subclass in Object.__subclasses__():
+            subclasses.extend(subclass.__subclasses__())
+        return subclasses
 
     @staticmethod
     def get_random(
@@ -31,9 +38,7 @@ class Object(Feature, ABC):
         color: Colors = None,
         style: Styles = None,
     ) -> Self:
-        subclasses = []
-        for subclass in Object.__subclasses__():
-            subclasses.extend(subclass.__subclasses__())
+        subclasses = Object.get_object_classes()
 
         if object_type:
             subclasses = [cls for cls in subclasses if cls.object_type == object_type]
