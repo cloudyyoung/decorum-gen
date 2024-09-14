@@ -457,7 +457,7 @@ def generate_conditions_common_feature_each_room(room_group: House | RoomGroup):
                 condition = Condition(condition_str, difficulty_points)
                 conditions.append(condition)
 
-    generate_condition_each_room(room_group.count_common_objects())
+    # generate_condition_each_room(room_group.count_common_objects())
 
     for color in list(Colors):
         no_objects = room_group.count_common_objects(color=color)

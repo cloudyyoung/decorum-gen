@@ -1,3 +1,4 @@
+from pprint import pprint
 from models.house import House
 from models.object import *
 import random
@@ -46,3 +47,9 @@ with open("conditions.txt", "w") as f:
     f.write("\n\nConditions\n\n")
     for c in conds:
         f.write(f"({c} {c.difficulty_points} pts)\n")
+
+# Randomly draw 12 conditions
+random.shuffle(conds)
+random.shuffle(conds)
+random.shuffle(conds)
+pprint(conds[:12])
