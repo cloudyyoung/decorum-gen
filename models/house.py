@@ -46,11 +46,11 @@ class House:
 
     @property
     def right_side(self):
-        return RoomGroup(self.kitchen, self.bedroom)
+        return RoomGroup(self.bedroom, self.kitchen)
 
     @property
     def upstairs(self):
-        return RoomGroup(self.bedroom, self.bathroom)
+        return RoomGroup(self.bathroom, self.bedroom)
 
     @property
     def downstairs(self):
@@ -58,8 +58,8 @@ class House:
 
     @property
     def top_left_and_bottom_right(self):
-        return RoomGroup(self.bedroom, self.kitchen)
+        return RoomGroup(self.bathroom, self.kitchen)
 
     @property
     def top_right_and_bottom_left(self):
-        return RoomGroup(self.bathroom, self.living_room)
+        return RoomGroup(self.bedrrom, self.living_room)
