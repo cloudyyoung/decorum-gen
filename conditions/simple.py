@@ -143,14 +143,85 @@ def generate_conditions_contain_each_object_type(house: House):
     no_curio = house.count_objects(object_type=ObjectTypes.CURIO)
 
     smallest_no = min(no_wall_hanging, no_lamp, no_curio)
+    largest_no = max(no_wall_hanging, no_lamp, no_curio)
 
     if smallest_no > 0:
-        for quantifier in ["at least", "at most", "exactly"]:
-            condition_str = f"The house must contain {quantifier} {smallest_no} of each object type."
-            conditions.append(Condition(condition_str, 3))
+        condition_str = (
+            f"The house must contain at least {smallest_no} of each object type."
+        )
+        conditions.append(Condition(condition_str, 3))
+
+    if largest_no > 0:
+        condition_str = (
+            f"The house must contain at most {largest_no} of each object type."
+        )
+        conditions.append(Condition(condition_str, 3))
 
     if no_wall_hanging == no_lamp == no_curio:
         condition_str = "The house must contain the same number of each object type."
+        conditions.append(Condition(condition_str, 4))
+
+        condition_str = (
+            f"The house must contain exactly {no_wall_hanging} of each object type."
+        )
+        conditions.append(Condition(condition_str, 3))
+
+    return conditions
+
+
+def generate_condition_contain_each_color(house: House):
+    conditions: list[Condition] = []
+
+    no_red = house.count_objects(color=Colors.RED)
+    no_green = house.count_objects(color=Colors.GREEN)
+    no_blue = house.count_objects(color=Colors.BLUE)
+    no_yellow = house.count_objects(color=Colors.YELLOW)
+
+    smallest_no = min(no_red, no_green, no_blue, no_yellow)
+    largest_no = max(no_red, no_green, no_blue, no_yellow)
+
+    if smallest_no > 0:
+        condition_str = f"The house must contain at least {smallest_no} of each color."
+        conditions.append(Condition(condition_str, 3))
+
+    if largest_no > 0:
+        condition_str = f"The house must contain at most {largest_no} of each color."
+        conditions.append(Condition(condition_str, 3))
+
+    if no_red == no_green == no_blue == no_yellow:
+        condition_str = "The house must contain the same number of each color."
+        conditions.append(Condition(condition_str, 4))
+
+        condition_str = f"The house must contain exactly {no_red} of each color."
+        conditions.append(Condition(condition_str, 3))
+
+    return conditions
+
+
+def generate_condition_contain_each_style(house: House):
+    conditions: list[Condition] = []
+
+    no_modern = house.count_objects(style=Styles.MODERN)
+    no_antique = house.count_objects(style=Styles.ANTIQUE)
+    no_retro = house.count_objects(style=Styles.RETRO)
+    no_unusual = house.count_objects(style=Styles.UNUSUAL)
+
+    smallest_no = min(no_modern, no_antique, no_retro, no_unusual)
+    largest_no = max(no_modern, no_antique, no_retro, no_unusual)
+
+    if smallest_no > 0:
+        condition_str = f"The house must contain at least {smallest_no} of each style."
+        conditions.append(Condition(condition_str, 4))
+
+    if largest_no > 0:
+        condition_str = f"The house must contain at most {largest_no} of each style."
+        conditions.append(Condition(condition_str, 4))
+
+    if no_modern == no_antique == no_retro == no_unusual:
+        condition_str = "The house must contain the same number of each style."
+        conditions.append(Condition(condition_str, 5))
+
+        condition_str = f"The house must contain exactly {no_modern} of each style."
         conditions.append(Condition(condition_str, 4))
 
     return conditions

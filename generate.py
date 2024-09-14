@@ -23,6 +23,10 @@ conds += generate_conditions_no_of_empty_rooms(house)
 
 conds += generate_conditions_contain_each_object_type(house)
 
+conds += generate_condition_contain_each_color(house)
+
+conds += generate_condition_contain_each_style(house)
+
 with open("conditions.txt", "w") as f:
     f.write(house.get_display())
 
