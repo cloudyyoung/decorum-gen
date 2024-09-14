@@ -52,14 +52,22 @@ def generate_conditions_room_contains(room: Room | RoomGroup):
             conditions.append(condition)
         else:
             quantifier = QUANTIFIERS[randint(0, 2)]
-            difficulty_points = max(1, 3 - conditions_value)
 
             if conditions_value == 0:
                 difficulty_points = 1
                 condition_str = f"The {room} must contain a {subject_str}."
             else:
+                difficulty_points = max(1, 3 - conditions_value)
+
+                if quantity >= 5 and quantifier == "at least":
+                    difficulty_points += 1
+
+                if quantity >= 5 and quantifier == "exactly":
+                    difficulty_points += 1
+
                 if quantifier == "exactly":
                     difficulty_points = max(2, difficulty_points)
+
                 condition_str = (
                     f"The {room} must contain {quantifier} {quantity} {subject_str}."
                 )
@@ -405,12 +413,14 @@ def generate_conditions_each_of_color(house: House):
 
     return conditions
 
+
 def generate_conditions_house_common_features(house: House):
     conditions: list[Condition] = []
     conditions += generate_conditions_common_feature_each_room(house)
     for room_group in house.room_groups:
         conditions += generate_conditions_common_feature_each_room(room_group)
     return conditions
+
 
 def generate_conditions_common_feature_each_room(room_group: House | RoomGroup):
     conditions: list[Condition] = []
