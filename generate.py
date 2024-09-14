@@ -52,4 +52,7 @@ with open("conditions.txt", "w") as f:
 random.shuffle(conds)
 random.shuffle(conds)
 random.shuffle(conds)
+random.shuffle(conds)
+random.shuffle(conds)
+random.shuffle(conds)
 pprint(conds[:12])

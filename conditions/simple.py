@@ -46,8 +46,12 @@ def generate_conditions_room_contains(room: Room | RoomGroup):
         subject_str = format_object_text(quantity, object_type, color, style)
 
         if quantity == 0:
-            difficulty_points = max(1, conditions_value + 1)
-            condition_str = f"The {room} must not contain any {subject_str}."
+            if conditions_value == 0:
+                difficulty_points = 1
+                condition_str = f"The {room} must not contain {subject_str}."
+            else:
+                difficulty_points = max(1, conditions_value + 1)
+                condition_str = f"The {room} must not contain any {subject_str}."
             condition = Condition(condition_str, difficulty_points)
             conditions.append(condition)
         else:
@@ -179,7 +183,7 @@ def generate_conditions_contain_each_object_type(house: House):
 
     if no_wall_hanging == no_lamp == no_curio:
         condition_str = "The house must contain the same number of each object type."
-        conditions.append(Condition(condition_str, 4))
+        conditions.append(Condition(condition_str, 5))
 
         condition_str = (
             f"The house must contain exactly {no_wall_hanging} of each object type."
