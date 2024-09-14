@@ -360,3 +360,48 @@ def generate_conditions_all_same(house: House):
             conditions.append(Condition(condition_str, 4))
 
     return conditions
+
+
+def generate_conditions_each_of_style(house: House):
+    conditions: list[Condition] = []
+
+    for style in list(Styles):
+        objects = house.get_objects(style=style)
+        objects = set(objects)
+
+        if len(objects) == 3:
+            object_str = format_object_text(1, style=style)
+            condition_str = f"The house must contain each {object_str} at least once."
+            conditions.append(Condition(condition_str, 4))
+
+    return conditions
+
+
+def generate_conditions_each_of_object_type(house: House):
+    conditions: list[Condition] = []
+
+    for object_type in list(ObjectTypes):
+        objects = house.get_objects(object_type=object_type)
+        objects = set(objects)
+
+        if len(objects) == 4:
+            object_str = format_object_text(1, object_type=object_type)
+            condition_str = f"The house must contain each {object_str} at least once."
+            conditions.append(Condition(condition_str, 4))
+
+    return conditions
+
+
+def generate_conditions_each_of_color(house: House):
+    conditions: list[Condition] = []
+
+    for color in list(Colors):
+        objects = house.get_objects(color=color)
+        objects = set(objects)
+
+        if len(objects) == 3:
+            object_str = format_object_text(1, color=color)
+            condition_str = f"The house must contain each {object_str} at least once."
+            conditions.append(Condition(condition_str, 4))
+
+    return conditions
