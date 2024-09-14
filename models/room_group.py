@@ -1,6 +1,8 @@
+from collections import defaultdict
 from constants.colors import Colors
 from constants.objects import ObjectTypes
 from constants.styles import Styles
+from models.object import Object
 from models.room import Room
 
 
@@ -43,3 +45,21 @@ class RoomGroup:
 
     def count_empty(self):
         return len([room for room in self.rooms if room.is_empty()])
+
+    def get_object_counts(self, include_nonexistent=False):
+        objects = defaultdict(int)
+
+        if include_nonexistent:
+            object_classes = Object.get_object_classes()
+            for obj_class in object_classes:
+                obj = obj_class()
+                count = self.count_objects(
+                    object_type=obj.object_type, color=obj.color, style=obj.style
+                )
+                objects[obj] = count
+        else:
+            for room in self.rooms:
+                for obj in room.get_objects():
+                    objects[obj] += 1
+
+        return objects

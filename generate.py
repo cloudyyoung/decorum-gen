@@ -27,6 +27,8 @@ conds += generate_condition_contain_each_color(house)
 
 conds += generate_condition_contain_each_style(house)
 
+conds += generate_conditions_not_contain_unless_repeated(house)
+
 with open("conditions.txt", "w") as f:
     f.write(house.get_display())
 
@@ -34,11 +36,3 @@ with open("conditions.txt", "w") as f:
     for c in conds:
         f.write(f"({c} {c.difficulty_points} pts)\n")
 
-
-# Randomly draw conditions
-random.shuffle(conds)
-random.shuffle(conds)
-random.shuffle(conds)
-random.shuffle(conds)
-selected_conds = conds[:12]
-pprint(selected_conds)
