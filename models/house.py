@@ -1,6 +1,5 @@
-from models.floor import Downstairs, Upstairs
 from models.room import Bedroom, Bathroom, LivingRoom, Kitchen
-from models.side import LeftSide, RightSide
+from models.room_group import RoomGroup
 
 
 class House:
@@ -43,16 +42,24 @@ class House:
 
     @property
     def left_side(self):
-        return LeftSide(self.bathroom, self.living_room)
+        return RoomGroup(self.bathroom, self.living_room)
 
     @property
     def right_side(self):
-        return RightSide(self.kitchen, self.bedroom)
+        return RoomGroup(self.kitchen, self.bedroom)
 
     @property
     def upstairs(self):
-        return Upstairs(self.bedroom, self.bathroom)
+        return RoomGroup(self.bedroom, self.bathroom)
 
     @property
     def downstairs(self):
-        return Downstairs(self.living_room, self.kitchen)
+        return RoomGroup(self.living_room, self.kitchen)
+
+    @property
+    def top_left_and_bottom_right(self):
+        return RoomGroup(self.bedroom, self.kitchen)
+
+    @property
+    def top_right_and_bottom_left(self):
+        return RoomGroup(self.bathroom, self.living_room)

@@ -1,12 +1,13 @@
-from abc import ABC
-
 from models.room import *
 
 
-class Side(ABC):
-    @property
-    def rooms(self):
-        return []
+class RoomGroup:
+    rooms: list[Room] = []
+
+    def __init__(self, *rooms, **krooms) -> None:
+        self.rooms = list(rooms)
+        for _, room in krooms.items():
+            self.rooms.append(room)
 
     def get_objects(
         self,
@@ -28,29 +29,3 @@ class Side(ABC):
         style: Type[Modern] | Type[Antique] | Type[Retro] | Type[Unusual] = None,
     ):
         return len(self.get_objects(object_type=object_type, color=color, style=style))
-
-
-class LeftSide(Side):
-    bathroom: Bathroom = None
-    living_room: LivingRoom = None
-
-    def __init__(self, bathroom: Bathroom, living_room: LivingRoom):
-        self.bathroom = bathroom
-        self.living_room = living_room
-
-    @property
-    def rooms(self):
-        return [self.bathroom, self.living_room]
-
-
-class RightSide(Side):
-    kitchen: Kitchen = None
-    bedroom: Bedroom = None
-
-    def __init__(self, kitchen: Kitchen, bedroom: Bedroom):
-        self.kitchen = kitchen
-        self.bedroom = bedroom
-
-    @property
-    def rooms(self):
-        return [self.kitchen, self.bedroom]
