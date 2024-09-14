@@ -7,6 +7,8 @@ class House(RoomGroup):
     House board.
     """
 
+    room_group_name = "House"
+
     bedroom: Bedroom = None
     bathroom: Bathroom = None
     living_room: LivingRoom = None

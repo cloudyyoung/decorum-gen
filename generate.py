@@ -14,7 +14,7 @@ print(house.get_display())
 conds = generate_conditions_empty_or_not_empty(house)
 pprint(conds)
 
-conds = generate_conditions_the_house_contains(house)
+conds = generate_conditions_house_contains(house)
 pprint(conds)
 
 conds = generate_conditions_only_room_empty(house)

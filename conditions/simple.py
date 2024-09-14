@@ -1,10 +1,12 @@
 from itertools import product
-from conditions.utils import format_subject
+from conditions.utils import format_object_text
 from constants.objects import ObjectTypes
 from constants.styles import Styles
 from models.color import *
 from models.house import House
 from conditions.condition import Condition
+from models.room import Room
+from models.room_group import RoomGroup
 
 
 def generate_conditions_empty_or_not_empty(house: House):
@@ -25,56 +27,67 @@ def generate_conditions_empty_or_not_empty(house: House):
     return conditions
 
 
-def generate_conditions_the_house_contains(house: House):
+def generate_conditions_house_contains(house: House):
+    conditions = []
+    conditions += generate_conditions_room_contains(house)
+    for room in house.rooms:
+        conditions += generate_conditions_room_contains(room)
+    for room_group in house.room_groups:
+        conditions += generate_conditions_room_contains(room_group)
+    return conditions
+
+
+def generate_conditions_room_contains(room: Room | RoomGroup):
     conditions: list[Condition] = []
     QUANTIFIERS = ["at least", "at most", "exactly"]
 
     def generate_condition(quantity, object_type=None, color=None, style=None):
-        point_value = 3 - [object_type, color, style].count(None)
-        subject_str = format_subject(quantity, object_type, color, style)
+        conditions_value = [object_type, color, style].count(None)
+        point_value = max(1, 3 - conditions_value)
+        subject_str = format_object_text(quantity, object_type, color, style)
 
         if quantity == 0:
-            condition_str = f"The house must contain no {subject_str}."
+            condition_str = f"The {room} must contain no {subject_str}."
             condition = Condition(condition_str, point_value)
             conditions.append(condition)
         else:
             for quantifier in QUANTIFIERS:
                 condition_str = (
-                    f"The house must contain {quantifier} {quantity} {subject_str}."
+                    f"The {room} must contain {quantifier} {quantity} {subject_str}."
                 )
                 condition = Condition(condition_str, point_value)
                 conditions.append(condition)
 
-    generate_condition(house.count_objects())
+    generate_condition(room.count_objects())
 
     for color in list(Colors):
-        no_objects = house.count_objects(color=color)
+        no_objects = room.count_objects(color=color)
         generate_condition(no_objects, color=color)
 
     for style in list(Styles):
-        no_objects = house.count_objects(style=style)
+        no_objects = room.count_objects(style=style)
         generate_condition(no_objects, style=style)
 
     for object_type in list(ObjectTypes):
-        no_objects = house.count_objects(object_type=object_type)
+        no_objects = room.count_objects(object_type=object_type)
         generate_condition(no_objects, object_type=object_type)
 
     for color, style in product(list(Colors), list(Styles)):
-        no_objects = house.count_objects(color=color, style=style)
+        no_objects = room.count_objects(color=color, style=style)
         generate_condition(no_objects, color=color, style=style)
 
     for color, object_type in product(list(Colors), list(ObjectTypes)):
-        no_objects = house.count_objects(color=color, object_type=object_type)
+        no_objects = room.count_objects(color=color, object_type=object_type)
         generate_condition(no_objects, color=color, object_type=object_type)
 
     for style, object_type in product(list(Styles), list(ObjectTypes)):
-        no_objects = house.count_objects(style=style, object_type=object_type)
+        no_objects = room.count_objects(style=style, object_type=object_type)
         generate_condition(no_objects, style=style, object_type=object_type)
 
     for color, style, object_type in product(
         list(Colors), list(Styles), list(ObjectTypes)
     ):
-        no_objects = house.count_objects(
+        no_objects = room.count_objects(
             color=color, style=style, object_type=object_type
         )
         generate_condition(

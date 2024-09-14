@@ -1,4 +1,4 @@
-def format_subject(quantity: int, object_type=None, color=None, style=None):
+def format_object_text(quantity: int, object_type=None, color=None, style=None):
     subject = ""
     if color:
         subject += f" {color}"
