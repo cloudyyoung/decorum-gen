@@ -1,4 +1,5 @@
 from itertools import product
+from random import randint
 from conditions.utils import format_object_text, number_to_times
 from constants.objects import ObjectTypes
 from constants.styles import Styles
@@ -39,7 +40,7 @@ def generate_conditions_house_contains(house: House):
 
 def generate_conditions_room_contains(room: Room | RoomGroup):
     conditions: list[Condition] = []
-    QUANTIFIERS = ["at least", "at most", "exactly"]
+    quantifiers = ["at least", "at most", "exactly"]
 
     def generate_condition(quantity, object_type=None, color=None, style=None):
         conditions_value = [object_type, color, style].count(None)
@@ -51,12 +52,12 @@ def generate_conditions_room_contains(room: Room | RoomGroup):
             condition = Condition(condition_str, difficulty_points)
             conditions.append(condition)
         else:
-            for quantifier in QUANTIFIERS:
-                condition_str = (
-                    f"The {room} must contain {quantifier} {quantity} {subject_str}."
-                )
-                condition = Condition(condition_str, difficulty_points)
-                conditions.append(condition)
+            quantifier = quantifiers[randint(0, 2)]
+            condition_str = (
+                f"The {room} must contain {quantifier} {quantity} {subject_str}."
+            )
+            condition = Condition(condition_str, difficulty_points)
+            conditions.append(condition)
 
     generate_condition(room.count_objects())
 
@@ -118,17 +119,18 @@ def generate_conditions_only_room_empty(house: House):
 def generate_conditions_no_of_empty_rooms(house: House):
     conditions: list[Condition] = []
 
+    quantifiers = ["at least", "at most", "exactly"]
     no_empty_rooms = house.count_empty()
     if no_empty_rooms > 1:
-        for quantifier in ["at least", "at most", "exactly"]:
-            condition_str = (
-                f"The house must contain {quantifier} {no_empty_rooms} empty rooms."
-            )
-            conditions.append(Condition(condition_str, 2))
+        quantifier = quantifiers[randint(0, 2)]
+        condition_str = (
+            f"The house must contain {quantifier} {no_empty_rooms} empty rooms."
+        )
+        conditions.append(Condition(condition_str, 2))
     elif no_empty_rooms == 1:
-        for quantifier in ["at least", "at most", "exactly"]:
-            condition_str = f"The house must contain {quantifier} 1 empty room."
-            conditions.append(Condition(condition_str, 2))
+        quantifier = quantifiers[randint(0, 2)]
+        condition_str = f"The house must contain {quantifier} 1 empty room."
+        conditions.append(Condition(condition_str, 2))
     else:
         conditions.append(Condition("The house must not contain any empty rooms.", 2))
 
