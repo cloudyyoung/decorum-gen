@@ -9,3 +9,9 @@ class Condition:
 
     def __repr__(self):
         return f"({self.condition} {self.difficulty_points} pts)"
+
+    def __hash__(self):
+        return hash(self.condition)
+
+    def __eq__(self, other):
+        return self.condition == other.condition
