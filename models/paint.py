@@ -11,6 +11,9 @@ class Paint(Feature, ABC):
 
     def __eq__(self, other: Self) -> bool:
         return self.color == other.color
+    
+    def __hash__(self) -> int:
+        return hash(self.color)
 
     @staticmethod
     def get_random():

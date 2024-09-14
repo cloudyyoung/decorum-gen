@@ -21,6 +21,9 @@ class Object(Feature, ABC):
             and self.color == other.color
             and self.style == other.style
         )
+    
+    def __hash__(self) -> int:
+        return hash((self.object_type, self.color, self.style))
 
     @staticmethod
     def get_random(
