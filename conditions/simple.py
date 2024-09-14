@@ -418,7 +418,7 @@ def generate_conditions_common_feature_each_room(room_group: House | RoomGroup):
         if isinstance(room_group, House):
             room_group_str = "Each room"
         else:
-            room_group_str = f"Each room of the {room_group}"
+            room_group_str = f"The {room_group}"
 
         if quantity == 0:
             # TODO: Add condition statement here
