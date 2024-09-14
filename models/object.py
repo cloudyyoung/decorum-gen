@@ -11,6 +11,17 @@ from models.feature import Feature
 
 
 class Object(Feature, ABC):
+    object_type: ObjectTypes = None
+    color: Colors = None
+    style: Styles = None
+
+    def __eq__(self, other: Self) -> bool:
+        return (
+            self.object_type == other.object_type
+            and self.color == other.color
+            and self.style == other.style
+        )
+
     @staticmethod
     def get_random(
         object_type: ObjectTypes = None,
