@@ -405,6 +405,12 @@ def generate_conditions_each_of_color(house: House):
 
     return conditions
 
+def generate_conditions_house_common_features(house: House):
+    conditions: list[Condition] = []
+    conditions += generate_conditions_common_feature_each_room(house)
+    for room_group in house.room_groups:
+        conditions += generate_conditions_common_feature_each_room(room_group)
+    return conditions
 
 def generate_conditions_common_feature_each_room(room_group: House | RoomGroup):
     conditions: list[Condition] = []

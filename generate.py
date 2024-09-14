@@ -37,7 +37,7 @@ conds += generate_conditions_each_of_style(house)
 conds += generate_conditions_each_of_object_type(house)
 conds += generate_conditions_each_of_color(house)
 
-conds += generate_conditions_common_feature_each_room(house)
+conds += generate_conditions_house_common_features(house)
 
 
 with open("conditions.txt", "w") as f:
