@@ -1,13 +1,10 @@
 from abc import ABC
 from random import randint
-from typing import Type
 from constants.objects import ObjectTypes
 from constants.styles import Styles
 from constants.colors import Colors
-from models.color import *
 from models.object import Curio, Lamp, WallHanging
 from models.paint import Paint
-from models.style import *
 
 
 class Room(ABC):
@@ -30,7 +27,7 @@ class Room(ABC):
         color: Colors = None,
         style: Styles = None,
     ):
-        objects = [self.paint, self.lamp, self.curio, self.wall_hanging]
+        objects = [self.lamp, self.curio, self.wall_hanging]
         objects = [object for object in objects if object]
 
         if object_type:
@@ -51,6 +48,21 @@ class Room(ABC):
         style: Styles = None,
     ):
         return len(self.get_objects(object_type=object_type, color=color, style=style))
+
+    def count_paint(self):
+        return 1 if self.paint else 0
+
+    def count_empty_slots(self):
+        return 4 - self.count_objects() - self.count_paint()
+
+    def count_occupied_slots(self):
+        return self.count_objects() + self.count_paint()
+
+    def is_empty(self):
+        return self.count_empty_slots() == 4
+
+    def is_full(self):
+        return self.count_occupied_slots() == 4
 
     def get_display(self) -> str:
         string = ""
