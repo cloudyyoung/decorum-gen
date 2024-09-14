@@ -13,13 +13,37 @@ class House(RoomGroup):
     kitchen: Kitchen = None
 
     rooms: list[Room] = None
+    room_groups: list[RoomGroup] = None
+
+    upstairs: RoomGroup = None
+    downstairs: RoomGroup = None
+    left_side: RoomGroup = None
+    right_side: RoomGroup = None
+    top_left_and_bottom_right: RoomGroup = None
+    top_right_and_bottom_left: Room
 
     def __init__(self):
         self.bedroom = Bedroom()
         self.bathroom = Bathroom()
         self.living_room = LivingRoom()
         self.kitchen = Kitchen()
+
         self.rooms = [self.bedroom, self.bathroom, self.living_room, self.kitchen]
+        self.upstairs = RoomGroup(self.bathroom, self.bedroom)
+        self.downstairs = RoomGroup(self.living_room, self.kitchen)
+        self.left_side = RoomGroup(self.bathroom, self.living_room)
+        self.right_side = RoomGroup(self.bedroom, self.kitchen)
+        self.top_left_and_bottom_right = RoomGroup(self.bathroom, self.kitchen)
+        self.top_right_and_bottom_left = RoomGroup(self.bedroom, self.living_room)
+
+        self.room_groups = [
+            self.upstairs,
+            self.downstairs,
+            self.left_side,
+            self.right_side,
+            self.top_left_and_bottom_right,
+            self.top_right_and_bottom_left,
+        ]
 
     def get_display(self) -> str:
         string = ""
@@ -33,27 +57,3 @@ class House(RoomGroup):
         self.bathroom.get_random()
         self.living_room.get_random()
         self.kitchen.get_random()
-
-    @property
-    def left_side(self):
-        return RoomGroup(self.bathroom, self.living_room)
-
-    @property
-    def right_side(self):
-        return RoomGroup(self.bedroom, self.kitchen)
-
-    @property
-    def upstairs(self):
-        return RoomGroup(self.bathroom, self.bedroom)
-
-    @property
-    def downstairs(self):
-        return RoomGroup(self.living_room, self.kitchen)
-
-    @property
-    def top_left_and_bottom_right(self):
-        return RoomGroup(self.bathroom, self.kitchen)
-
-    @property
-    def top_right_and_bottom_left(self):
-        return RoomGroup(self.bedrrom, self.living_room)
