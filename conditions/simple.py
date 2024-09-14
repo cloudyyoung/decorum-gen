@@ -119,23 +119,38 @@ def generate_conditions_no_of_empty_rooms(house: House):
     conditions: list[Condition] = []
 
     no_empty_rooms = house.count_empty()
-    if no_empty_rooms > 0:
-        conditions.append(
-            Condition(
-                f"The house must contain at least {no_empty_rooms} empty rooms.", 2
+    if no_empty_rooms > 1:
+        for quantifier in ["at least", "at most", "exactly"]:
+            condition_str = (
+                f"The house must contain {quantifier} {no_empty_rooms} empty rooms."
             )
-        )
-        conditions.append(
-            Condition(
-                f"The house must contain at most {no_empty_rooms} empty rooms.", 2
-            )
-        )
-        conditions.append(
-            Condition(
-                f"The house must contain exactly {no_empty_rooms} empty rooms.", 2
-            )
-        )
+            conditions.append(Condition(condition_str, 2))
+    elif no_empty_rooms == 1:
+        for quantifier in ["at least", "at most", "exactly"]:
+            condition_str = f"The house must contain {quantifier} 1 empty room."
+            conditions.append(Condition(condition_str, 2))
     else:
         conditions.append(Condition("The house must not contain any empty rooms.", 2))
+
+    return conditions
+
+
+def generate_conditions_contain_each_object_type(house: House):
+    conditions: list[Condition] = []
+
+    no_wall_hanging = house.count_objects(object_type=ObjectTypes.WALL_HANGING)
+    no_lamp = house.count_objects(object_type=ObjectTypes.LAMP)
+    no_curio = house.count_objects(object_type=ObjectTypes.CURIO)
+
+    smallest_no = min(no_wall_hanging, no_lamp, no_curio)
+
+    if smallest_no > 0:
+        for quantifier in ["at least", "at most", "exactly"]:
+            condition_str = f"The house must contain {quantifier} {smallest_no} of each object type."
+            conditions.append(Condition(condition_str, 3))
+
+    if no_wall_hanging == no_lamp == no_curio:
+        condition_str = "The house must contain the same number of each object type."
+        conditions.append(Condition(condition_str, 4))
 
     return conditions
