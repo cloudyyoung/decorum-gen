@@ -40,6 +40,18 @@ class RoomGroup:
     ):
         return len(self.get_objects(object_type=object_type, color=color, style=style))
 
+    def count_common_objects(
+        self,
+        object_type: ObjectTypes = None,
+        color: Colors = None,
+        style: Styles = None,
+    ):
+        no_objects = 999
+        for room in self.rooms:
+            objs = room.count_objects(object_type=object_type, color=color, style=style)
+            no_objects = min(no_objects, objs)
+        return no_objects
+
     def is_empty(self):
         return all([room.is_empty() for room in self.rooms])
 

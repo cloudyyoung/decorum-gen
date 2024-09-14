@@ -1,6 +1,6 @@
 from itertools import combinations, product
 from random import randint
-from conditions.utils import format_object_text, number_to_times
+from conditions.utils import QUANTIFIERS, format_object_text, number_to_times
 from constants.objects import ObjectTypes
 from constants.styles import Styles
 from models.color import *
@@ -40,7 +40,6 @@ def generate_conditions_house_contains(house: House):
 
 def generate_conditions_room_contains(room: Room | RoomGroup):
     conditions: list[Condition] = []
-    quantifiers = ["at least", "at most", "exactly"]
 
     def generate_condition(quantity, object_type=None, color=None, style=None):
         conditions_value = [object_type, color, style].count(None)
@@ -52,7 +51,7 @@ def generate_conditions_room_contains(room: Room | RoomGroup):
             condition = Condition(condition_str, difficulty_points)
             conditions.append(condition)
         else:
-            quantifier = quantifiers[randint(0, 2)]
+            quantifier = QUANTIFIERS[randint(0, 2)]
             difficulty_points = max(1, 3 - conditions_value)
 
             if conditions_value == 0:
@@ -404,4 +403,84 @@ def generate_conditions_each_of_color(house: House):
             condition_str = f"The house must contain each {object_str} at least once."
             conditions.append(Condition(condition_str, 4))
 
+    return conditions
+
+
+def generate_conditions_common_feature_each_room(room_group: House | RoomGroup):
+    conditions: list[Condition] = []
+
+    def generate_condition_each_room(
+        quantity, object_type=None, color=None, style=None
+    ):
+        conditions_value = [object_type, color, style].count(None)
+        subject_str = format_object_text(quantity, object_type, color, style)
+
+        if isinstance(room_group, House):
+            room_group_str = "Each room"
+        else:
+            room_group_str = f"Each room of the {room_group}"
+
+        if quantity == 0:
+            # TODO: Add condition statement here
+            ...
+        else:
+            quantifier = QUANTIFIERS[0]
+            difficulty_points = max(1, 3 - conditions_value)
+
+            if quantity == 1 and conditions_value == 2 and object_type:
+                difficulty_points = 1
+                condition_str = f"{room_group_str} must contain a {subject_str}."
+            elif conditions_value == 0:
+                difficulty_points = 1
+                condition_str = f"{room_group_str} must contain a {subject_str}."
+            else:
+                if quantifier == "exactly":
+                    difficulty_points = max(2, difficulty_points)
+                condition_str = f"{room_group_str} must contain {quantifier} {quantity} {subject_str}."
+            condition = Condition(condition_str, difficulty_points)
+            conditions.append(condition)
+
+    generate_condition_each_room(room_group.count_common_objects())
+
+    for color in list(Colors):
+        no_objects = room_group.count_common_objects(color=color)
+        generate_condition_each_room(no_objects, color=color)
+
+    for style in list(Styles):
+        no_objects = room_group.count_common_objects(style=style)
+        generate_condition_each_room(no_objects, style=style)
+
+    for object_type in list(ObjectTypes):
+        no_objects = room_group.count_common_objects(object_type=object_type)
+        print(object_type, no_objects)
+        generate_condition_each_room(no_objects, object_type=object_type)
+
+    for color, style in product(list(Colors), list(Styles)):
+        no_objects = room_group.count_common_objects(color=color, style=style)
+        generate_condition_each_room(no_objects, color=color, style=style)
+
+    for color, object_type in product(list(Colors), list(ObjectTypes)):
+        no_objects = room_group.count_common_objects(
+            color=color, object_type=object_type
+        )
+        generate_condition_each_room(no_objects, color=color, object_type=object_type)
+
+    for style, object_type in product(list(Styles), list(ObjectTypes)):
+        no_objects = room_group.count_common_objects(
+            style=style, object_type=object_type
+        )
+        generate_condition_each_room(no_objects, style=style, object_type=object_type)
+
+    for color, style, object_type in product(
+        list(Colors), list(Styles), list(ObjectTypes)
+    ):
+        no_objects = room_group.count_common_objects(
+            color=color, style=style, object_type=object_type
+        )
+        generate_condition_each_room(
+            no_objects, color=color, style=style, object_type=object_type
+        )
+
+    # Remove duplicates in conditions
+    conditions = list(set(conditions))
     return conditions

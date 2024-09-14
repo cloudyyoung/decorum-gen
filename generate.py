@@ -1,8 +1,5 @@
 from models.house import House
 from models.object import *
-from models.wall_color import *
-from models.color import *
-from models.style import *
 import random
 
 from conditions.simple import *
@@ -10,6 +7,10 @@ from conditions.simple import *
 house = House()
 house.get_random()
 print(house.get_display())
+house.bathroom.wall_hanging = RedModernWallHanging()
+house.bedroom.lamp = RedRetroLamp()
+house.kitchen.curio = RedUnusualCurio()
+house.living_room.wall_hanging = RedModernWallHanging()
 
 conds = []
 conds += generate_conditions_empty_or_not_empty(house)
@@ -35,6 +36,8 @@ conds += generate_conditions_all_same(house)
 conds += generate_conditions_each_of_style(house)
 conds += generate_conditions_each_of_object_type(house)
 conds += generate_conditions_each_of_color(house)
+
+conds += generate_conditions_common_feature_each_room(house)
 
 
 with open("conditions.txt", "w") as f:

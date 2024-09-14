@@ -1,3 +1,6 @@
+QUANTIFIERS = ["at least", "at most", "exactly"]
+
+
 def format_object_text(quantity: int, object_type=None, color=None, style=None):
     subject = ""
     if color:
