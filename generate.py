@@ -28,6 +28,8 @@ conds += generate_condition_contain_each_style(house)
 
 conds += generate_conditions_not_contain_unless_repeated(house)
 
+conds += generate_conditions_house_wall_color_match_object_color(house)
+
 with open("conditions.txt", "w") as f:
     f.write(house.get_display())
 

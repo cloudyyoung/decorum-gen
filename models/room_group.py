@@ -63,3 +63,7 @@ class RoomGroup:
                     objects[obj] += 1
 
         return objects
+
+    def is_identical_wall_colors(self):
+        wall_colors = [room.wall_color for room in self.rooms]
+        return len(set(wall_colors)) == 1

@@ -273,3 +273,49 @@ def generate_conditions_not_contain_unless_repeated(house: House):
     # Remove duplicates in conditions
     conditions = list(set(conditions))
     return conditions
+
+
+def generate_conditions_house_wall_color_match_object_color(house: House):
+    conditions: list[Condition] = []
+    for room in house.rooms:
+        conditions += generate_conditions_room_wall_color_match_object_color(room)
+    for room_group in house.room_groups:
+        conditions += generate_conditions_room_wall_color_match_object_color(room_group)
+    return conditions
+
+
+def generate_conditions_room_wall_color_match_object_color(room: Room | RoomGroup):
+    conditions: list[Condition] = []
+
+    if isinstance(room, RoomGroup) and not room.is_identical_wall_colors():
+        return conditions
+
+    if isinstance(room, RoomGroup):
+        wall_color = room.rooms[0].wall_color
+        suffix = "s"
+    else:
+        wall_color = room.wall_color
+        suffix = ""
+
+    matching_objects = room.get_objects(color=wall_color.color)
+    no_matching_objects = len(matching_objects)
+    no_room_objects = room.count_objects()
+
+    if no_matching_objects == no_room_objects:
+        condition_str = f"The wall color{suffix} of the {room} must match the color of all the objects in the room{suffix}."
+        conditions.append(Condition(condition_str, 4))
+    elif no_matching_objects >= 1:
+        condition_str = f"The wall color{suffix} of the {room} must match the color of one of the objects in the room{suffix}."
+        conditions.append(Condition(condition_str, 3))
+
+    if no_matching_objects >= 1:
+        for matching_obj in matching_objects:
+            subject_str = format_object_text(2, object_type=matching_obj.object_type)
+            condition_str = f"The wall color{suffix} of the {room} must match the color of the {subject_str} in the room{suffix}."
+            conditions.append(Condition(condition_str, 3))
+
+            subject_str = format_object_text(2, style=matching_obj.style)
+            condition_str = f"The wall color{suffix} of the {room} must match the color of one of the {subject_str} in the room{suffix}."
+            conditions.append(Condition(condition_str, 4))
+
+    return conditions
