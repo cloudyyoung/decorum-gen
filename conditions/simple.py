@@ -51,7 +51,10 @@ def generate_conditions_room_contains(room: Room | RoomGroup):
             condition = Condition(condition_str, difficulty_points)
             conditions.append(condition)
         else:
-            quantifier = QUANTIFIERS[randint(0, 2)]
+            if isinstance(room, House):
+                quantifier = "at least"
+            else:
+                quantifier = QUANTIFIERS[randint(0, 2)]
 
             if conditions_value == 0:
                 difficulty_points = 1
