@@ -1,3 +1,4 @@
+from models.floor import Downstairs, Upstairs
 from models.room import Bedroom, Bathroom, LivingRoom, Kitchen
 
 
@@ -49,8 +50,8 @@ class House:
 
     @property
     def upstairs(self):
-        return self.bedroom.paint, self.bathroom.paint
+        return Upstairs(self.bedroom, self.bathroom)
 
     @property
     def downstairs(self):
-        return self.living_room.paint, self.kitchen.paint
+        return Downstairs(self.living_room, self.kitchen)
