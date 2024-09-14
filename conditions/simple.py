@@ -47,7 +47,7 @@ def generate_conditions_room_contains(room: Room | RoomGroup):
         subject_str = format_object_text(quantity, object_type, color, style)
 
         if quantity == 0:
-            condition_str = f"The {room} must contain no {subject_str}."
+            condition_str = f"The {room} must not contain any {subject_str}."
             condition = Condition(condition_str, difficulty_points)
             conditions.append(condition)
         else:
@@ -240,7 +240,7 @@ def generate_conditions_not_contain_unless_repeated(house: House):
             conditions.append(Condition(condition_str, 5))
 
     object_counts = house.get_object_counts(include_nonexistent=True)
-    
+
     for object, specific_obj_count in object_counts.items():
         # object type
         object_type_count = house.count_objects(object_type=object.object_type)

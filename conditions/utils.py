@@ -5,12 +5,12 @@ def format_object_text(quantity: int, object_type=None, color=None, style=None):
     if style:
         subject += f" {style}"
     if object_type:
-        if quantity < 2:
+        if quantity == 1:
             subject += f" {object_type}"
         else:
             subject += f" {object_type}s"
     else:
-        if quantity < 2:
+        if quantity == 1:
             subject += " object"
         else:
             subject += " objects"

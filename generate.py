@@ -1,4 +1,3 @@
-from pprint import pprint
 from models.house import House
 from models.object import *
 from models.wall_color import *
