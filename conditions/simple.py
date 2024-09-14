@@ -43,19 +43,19 @@ def generate_conditions_room_contains(room: Room | RoomGroup):
 
     def generate_condition(quantity, object_type=None, color=None, style=None):
         conditions_value = [object_type, color, style].count(None)
-        point_value = max(1, 3 - conditions_value)
+        difficulty_points = max(1, 3 - conditions_value)
         subject_str = format_object_text(quantity, object_type, color, style)
 
         if quantity == 0:
             condition_str = f"The {room} must contain no {subject_str}."
-            condition = Condition(condition_str, point_value)
+            condition = Condition(condition_str, difficulty_points)
             conditions.append(condition)
         else:
             for quantifier in QUANTIFIERS:
                 condition_str = (
                     f"The {room} must contain {quantifier} {quantity} {subject_str}."
                 )
-                condition = Condition(condition_str, point_value)
+                condition = Condition(condition_str, difficulty_points)
                 conditions.append(condition)
 
     generate_condition(room.count_objects())
