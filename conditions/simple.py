@@ -47,4 +47,6 @@ def generate_conditions_empty_or_not_empty(house: House):
 def generate_conditions_the_house_contains(house: House):
     conditions: list[Condition] = []
 
+    
+
     return conditions

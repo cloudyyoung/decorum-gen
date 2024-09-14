@@ -1,5 +1,6 @@
 from models.floor import Downstairs, Upstairs
 from models.room import Bedroom, Bathroom, LivingRoom, Kitchen
+from models.side import LeftSide, RightSide
 
 
 class House:
@@ -42,11 +43,11 @@ class House:
 
     @property
     def left_side(self):
-        return self.bathroom.paint, self.living_room.paint
+        return LeftSide(self.bathroom, self.living_room)
 
     @property
     def right_side(self):
-        return self.kitchen.paint, self.bedroom.paint
+        return RightSide(self.kitchen, self.bedroom)
 
     @property
     def upstairs(self):
