@@ -19,6 +19,8 @@ class Object(Feature, ABC):
         return f"{self.color} {self.style} {self.object_type}"
 
     def __eq__(self, other: Self) -> bool:
+        if not other:
+            return False
         return (
             self.object_type == other.object_type
             and self.color == other.color

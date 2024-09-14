@@ -1,4 +1,4 @@
-from itertools import product
+from itertools import combinations, product
 from random import randint
 from conditions.utils import format_object_text, number_to_times
 from constants.objects import ObjectTypes
@@ -317,5 +317,16 @@ def generate_conditions_room_wall_color_match_object_color(room: Room | RoomGrou
             subject_str = format_object_text(2, style=matching_obj.style)
             condition_str = f"The wall color{suffix} of the {room} must match the color of one of the {subject_str} in the room{suffix}."
             conditions.append(Condition(condition_str, 4))
+
+    return conditions
+
+
+def generate_conditions_identical_features(house: House):
+    conditions: list[Condition] = []
+
+    for room1, room2 in combinations(house.rooms, 2):
+        if room1.is_identical_features(room2):
+            condition_str = f"The {room1} and the {room2} features must be identical (same objects and wall color)."
+            conditions.append(Condition(condition_str, 6))
 
     return conditions

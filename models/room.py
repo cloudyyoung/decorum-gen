@@ -1,5 +1,6 @@
 from abc import ABC
 from random import randint
+from typing import Self
 from constants.objects import ObjectTypes
 from constants.styles import Styles
 from constants.colors import Colors
@@ -71,6 +72,16 @@ class Room(ABC):
         string += "    Curio:        " + str(self.curio) + "\n"
         string += "    Wall Hanging: " + str(self.wall_hanging) + "\n"
         return string
+
+    def is_identical_features(self, other: Self) -> bool:
+        if not other:
+            return False
+        return (
+            self.wall_color == other.wall_color
+            and self.lamp == other.lamp
+            and self.curio == other.curio
+            and self.wall_hanging == other.wall_hanging
+        )
 
     def __str__(self) -> str:
         return self.room_name
