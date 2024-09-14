@@ -44,18 +44,26 @@ def generate_conditions_room_contains(room: Room | RoomGroup):
 
     def generate_condition(quantity, object_type=None, color=None, style=None):
         conditions_value = [object_type, color, style].count(None)
-        difficulty_points = max(1, 3 - conditions_value)
         subject_str = format_object_text(quantity, object_type, color, style)
 
         if quantity == 0:
+            difficulty_points = max(1, conditions_value + 1)
             condition_str = f"The {room} must not contain any {subject_str}."
             condition = Condition(condition_str, difficulty_points)
             conditions.append(condition)
         else:
             quantifier = quantifiers[randint(0, 2)]
-            condition_str = (
-                f"The {room} must contain {quantifier} {quantity} {subject_str}."
-            )
+            difficulty_points = max(1, 3 - conditions_value)
+
+            if conditions_value == 0:
+                difficulty_points = 1
+                condition_str = f"The {room} must contain a {subject_str}."
+            else:
+                if quantifier == "exactly":
+                    difficulty_points = max(2, difficulty_points)
+                condition_str = (
+                    f"The {room} must contain {quantifier} {quantity} {subject_str}."
+                )
             condition = Condition(condition_str, difficulty_points)
             conditions.append(condition)
 
