@@ -15,6 +15,9 @@ class Object(Feature, ABC):
     color: Colors
     style: Styles
 
+    def __str__(self) -> str:
+        return f"{self.color} {self.style} {self.object_type}"
+
     def __eq__(self, other: Self) -> bool:
         return (
             self.object_type == other.object_type

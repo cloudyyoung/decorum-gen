@@ -4,7 +4,7 @@ import re
 
 class Feature(ABC):
     """
-    Object or paint color.
+    Object or wall_color color.
     """
 
     def __repr__(self) -> str:

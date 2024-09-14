@@ -1,7 +1,7 @@
 from pprint import pprint
 from models.house import House
 from models.object import *
-from models.paint import *
+from models.wall_color import *
 from models.color import *
 from models.style import *
 import random
@@ -35,4 +35,3 @@ with open("conditions.txt", "w") as f:
     f.write("\n\nConditions\n\n")
     for c in conds:
         f.write(f"({c} {c.difficulty_points} pts)\n")
-

@@ -4,7 +4,7 @@ from constants.objects import ObjectTypes
 from constants.styles import Styles
 from constants.colors import Colors
 from models.object import Curio, Lamp, WallHanging
-from models.paint import Paint
+from models.wall_color import WallColor
 
 
 class Room(ABC):
@@ -13,7 +13,7 @@ class Room(ABC):
     """
 
     room_name: str = None
-    paint: Paint = None
+    wall_color: WallColor = None
     lamp: Lamp = None
     curio: Curio = None
     wall_hanging: WallHanging = None
@@ -49,14 +49,14 @@ class Room(ABC):
     ):
         return len(self.get_objects(object_type=object_type, color=color, style=style))
 
-    def count_paint(self):
-        return 1 if self.paint else 0
+    def count_wall_color(self):
+        return 1 if self.wall_color else 0
 
     def count_empty_slots(self):
-        return 4 - self.count_objects() - self.count_paint()
+        return 4 - self.count_objects() - self.count_wall_color()
 
     def count_occupied_slots(self):
-        return self.count_objects() + self.count_paint()
+        return self.count_objects() + self.count_wall_color()
 
     def is_empty(self):
         return self.count_empty_slots() == 4
@@ -66,7 +66,7 @@ class Room(ABC):
 
     def get_display(self) -> str:
         string = ""
-        string += "    Paint:        " + str(self.paint) + "\n"
+        string += "    WallColor:        " + str(self.wall_color) + "\n"
         string += "    Lamp:         " + str(self.lamp) + "\n"
         string += "    Curio:        " + str(self.curio) + "\n"
         string += "    Wall Hanging: " + str(self.wall_hanging) + "\n"
@@ -80,7 +80,7 @@ class Room(ABC):
         curio_r = randint(0, 3)
         wall_hanging_r = randint(0, 3)
 
-        self.paint = Paint.get_random()
+        self.wall_color = WallColor.get_random()
         if lamp_r <= 2:
             self.lamp = Lamp.get_random(object_type=ObjectTypes.LAMP)
         if curio_r <= 2:
