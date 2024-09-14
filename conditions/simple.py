@@ -63,7 +63,7 @@ def generate_conditions_room_contains(room: Room | RoomGroup):
                     difficulty_points += 1
 
                 if quantity >= 5 and quantifier == "exactly":
-                    difficulty_points += 1
+                    difficulty_points += 2
 
                 if quantifier == "exactly":
                     difficulty_points = max(2, difficulty_points)
