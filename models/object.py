@@ -2,6 +2,9 @@ from abc import ABC
 import random
 from typing import Self, Type
 
+from constants.colors import Colors
+from constants.objects import ObjectTypes
+from constants.styles import Styles
 from models.color import Red, Yellow, Blue, Green
 from models.style import Modern, Antique, Retro, Unusual
 from models.feature import Feature
@@ -10,38 +13,40 @@ from models.feature import Feature
 class Object(Feature, ABC):
     @staticmethod
     def get_random(
-        object_type: Type["Lamp"] | Type["Curio"] | Type["WallHanging"] = None,
-        color: Type[Red] | Type[Green] | Type[Blue] | Type[Green] = None,
-        style: Type[Modern] | Type[Antique] | Type[Retro] | Type[Unusual] = None,
+        object_type: ObjectTypes = None,
+        color: Colors = None,
+        style: Styles = None,
     ) -> Self:
-        # Get all subclasses of Object recursively
         subclasses = []
         for subclass in Object.__subclasses__():
             subclasses.extend(subclass.__subclasses__())
 
         if object_type:
-            subclasses = [cls for cls in subclasses if issubclass(cls, object_type)]
+            subclasses = [cls for cls in subclasses if cls.object_type == object_type]
 
         if color:
-            subclasses = [cls for cls in subclasses if issubclass(cls, color)]
+            subclasses = [cls for cls in subclasses if cls.color == color]
 
         if style:
-            subclasses = [cls for cls in subclasses if issubclass(cls, style)]
+            subclasses = [cls for cls in subclasses if cls.style == style]
 
         if len(subclasses) == 0:
-            raise Exception("No matching object found")
+            return None
 
         subclass = random.choice(subclasses)
         return subclass()
 
 
-class Lamp(Object, ABC): ...
+class Lamp(Object, ABC):
+    object_type = ObjectTypes.LAMP
 
 
-class Curio(Object, ABC): ...
+class Curio(Object, ABC):
+    object_type = ObjectTypes.CURIO
 
 
-class WallHanging(Object, ABC): ...
+class WallHanging(Object, ABC):
+    object_type = ObjectTypes.WALL_HANGING
 
 
 ### Modern

@@ -16,9 +16,9 @@ class RoomGroup:
 
     def get_objects(
         self,
-        object_type: Type[Lamp] | Type[Curio] | Type[WallHanging] = None,
-        color: Type[Red] | Type[Green] | Type[Blue] | Type[Green] = None,
-        style: Type[Modern] | Type[Antique] | Type[Retro] | Type[Unusual] = None,
+        object_type: ObjectTypes = None,
+        color: Colors = None,
+        style: Styles = None,
     ):
         objects = []
         for room in self.rooms:

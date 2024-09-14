@@ -1,6 +1,9 @@
 from abc import ABC
 from random import randint
 from typing import Type
+from constants.objects import ObjectTypes
+from constants.styles import Styles
+from constants.colors import Colors
 from models.color import *
 from models.object import Curio, Lamp, WallHanging
 from models.paint import Paint
@@ -23,27 +26,29 @@ class Room(ABC):
 
     def get_objects(
         self,
-        object_type: Type[Lamp] | Type[Curio] | Type[WallHanging] = None,
-        color: Type[Red] | Type[Green] | Type[Blue] | Type[Green] = None,
-        style: Type[Modern] | Type[Antique] | Type[Retro] | Type[Unusual] = None,
+        object_type: ObjectTypes = None,
+        color: Colors = None,
+        style: Styles = None,
     ):
         objects = [self.paint, self.lamp, self.curio, self.wall_hanging]
         objects = [object for object in objects if object]
 
         if object_type:
-            objects = [object for object in objects if isinstance(object, object_type)]
+            objects = [
+                object for object in objects if object.object_type == object_type
+            ]
         if color:
-            objects = [object for object in objects if isinstance(object, color)]
+            objects = [object for object in objects if object.color == color]
         if style:
-            objects = [object for object in objects if isinstance(object, style)]
+            objects = [object for object in objects if object.style == style]
 
         return objects
 
     def count_objects(
         self,
-        object_type: Type[Lamp] | Type[Curio] | Type[WallHanging] = None,
-        color: Type[Red] | Type[Green] | Type[Blue] | Type[Green] = None,
-        style: Type[Modern] | Type[Antique] | Type[Retro] | Type[Unusual] = None,
+        object_type: ObjectTypes = None,
+        color: Colors = None,
+        style: Styles = None,
     ):
         return len(self.get_objects(object_type=object_type, color=color, style=style))
 
@@ -65,11 +70,13 @@ class Room(ABC):
 
         self.paint = Paint.get_random()
         if lamp_r <= 2:
-            self.lamp = Lamp.get_random(object_type=Lamp)
+            self.lamp = Lamp.get_random(object_type=ObjectTypes.LAMP)
         if curio_r <= 2:
-            self.curio = Curio.get_random(object_type=Curio)
+            self.curio = Curio.get_random(object_type=ObjectTypes.CURIO)
         if wall_hanging_r <= 2:
-            self.wall_hanging = WallHanging.get_random(object_type=WallHanging)
+            self.wall_hanging = WallHanging.get_random(
+                object_type=ObjectTypes.WALL_HANGING
+            )
 
 
 class Bathroom(Room):
