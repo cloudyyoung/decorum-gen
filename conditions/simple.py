@@ -77,7 +77,7 @@ def generate_conditions_room_contains(room: Room | RoomGroup):
             condition = Condition(condition_str, difficulty_points)
             conditions.append(condition)
 
-    generate_condition(room.count_objects())
+    # generate_condition(room.count_objects())
 
     for color in list(Colors):
         no_objects = room.count_objects(color=color)
