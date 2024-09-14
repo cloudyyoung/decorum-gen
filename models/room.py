@@ -59,11 +59,25 @@ class Room(ABC):
     def count_occupied_slots(self):
         return self.count_objects() + self.count_wall_color()
 
+    def count_slots(self):
+        return 4
+
+    def count_object_slots(self):
+        return 3
+
     def is_empty(self):
         return self.count_empty_slots() == 4
 
     def is_full(self):
         return self.count_occupied_slots() == 4
+
+    def is_identical_colors(self):
+        colors = [object.color for object in self.get_objects()]
+        return len(set(colors)) == 1
+
+    def is_identical_styles(self):
+        styles = [object.style for object in self.get_objects()]
+        return len(set(styles)) == 1
 
     def get_display(self) -> str:
         string = ""

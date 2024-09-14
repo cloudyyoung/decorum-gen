@@ -341,3 +341,22 @@ def generate_conditions_identical_features(house: House):
             conditions.append(Condition(condition_str, 6))
 
     return conditions
+
+
+def generate_conditions_all_same(house: House):
+    conditions: list[Condition] = []
+
+    for room in house.rooms:
+        if room.is_identical_colors() and room.is_identical_styles():
+            condition_str = (
+                f"Objects in the {room} must all have the same color and style."
+            )
+            conditions.append(Condition(condition_str, 4))
+        elif room.is_identical_colors():
+            condition_str = f"Objects in the {room} must all have the same color."
+            conditions.append(Condition(condition_str, 4))
+        elif room.is_identical_styles():
+            condition_str = f"Objects in the {room} must all have the same style."
+            conditions.append(Condition(condition_str, 4))
+
+    return conditions

@@ -10,6 +10,10 @@ from conditions.simple import *
 house = House()
 house.get_random()
 print(house.get_display())
+house.bedroom.lamp.color = Colors.RED
+house.bedroom.wall_hanging.color = Colors.RED
+house.bedroom.curio.color = Colors.RED
+house.bedroom.wall_color.color = Colors.RED
 
 conds = []
 conds += generate_conditions_empty_or_not_empty(house)
@@ -31,6 +35,8 @@ conds += generate_conditions_not_contain_unless_repeated(house)
 conds += generate_conditions_house_wall_color_match_object_color(house)
 
 conds += generate_conditions_identical_features(house)
+
+conds += generate_conditions_all_same(house)
 
 
 with open("conditions.txt", "w") as f:
