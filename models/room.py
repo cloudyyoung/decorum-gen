@@ -5,7 +5,6 @@ from constants.objects import ObjectTypes
 from constants.styles import Styles
 from constants.colors import Colors
 from models.object import Curio, Lamp, WallHanging
-from models.wall_color import WallColor
 
 
 class Room(ABC):
@@ -81,21 +80,26 @@ class Room(ABC):
 
     def get_display(self) -> str:
         string = ""
-        string += "    WallColor:    " + str(self.wall_color) + "\n"
+        string += "    Wall color:   " + str(self.wall_color) + "\n"
+        string += "\n"
         string += "    Lamp:         " + str(self.lamp) + "\n"
         string += "    Curio:        " + str(self.curio) + "\n"
         string += "    Wall Hanging: " + str(self.wall_hanging) + "\n"
         return string
 
-    def is_identical_features(self, other: Self) -> bool:
-        if not other:
+    def __eq__(self, other: object) -> bool:
+        if not other or not isinstance(other, Room):
             return False
+
         return (
             self.wall_color == other.wall_color
             and self.lamp == other.lamp
             and self.curio == other.curio
             and self.wall_hanging == other.wall_hanging
         )
+
+    def __hash__(self) -> int:
+        return hash((self.wall_color, self.lamp, self.curio, self.wall_hanging))
 
     def __str__(self) -> str:
         return self.room_name

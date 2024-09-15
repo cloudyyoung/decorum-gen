@@ -13,5 +13,7 @@ class Condition:
     def __hash__(self):
         return hash(self.condition)
 
-    def __eq__(self, other):
+    def __eq__(self, other: object):
+        if not other or not isinstance(other, Condition):
+            return False
         return self.condition == other.condition

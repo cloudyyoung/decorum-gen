@@ -18,8 +18,8 @@ class Object(Feature, ABC):
     def __str__(self) -> str:
         return f"{self.color} {self.style} {self.object_type}"
 
-    def __eq__(self, other: Self) -> bool:
-        if not other:
+    def __eq__(self, other: object) -> bool:
+        if not other or not isinstance(other, Object):
             return False
         return (
             self.object_type == other.object_type

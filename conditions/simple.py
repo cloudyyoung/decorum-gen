@@ -350,7 +350,7 @@ def generate_conditions_identical_features(house: House):
     conditions: list[Condition] = []
 
     for room1, room2 in combinations(house.rooms, 2):
-        if room1.is_identical_features(room2):
+        if room1 == room2:
             condition_str = f"The {room1} and the {room2} features must be identical (same objects and wall color)."
             conditions.append(Condition(condition_str, 6))
 
