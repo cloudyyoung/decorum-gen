@@ -72,9 +72,14 @@ class Room(ABC):
 
     def is_identical_colors(self):
         colors = [object.color for object in self.get_objects()]
+        colors.append(self.wall_color)
         return len(set(colors)) == 1
 
-    def is_identical_styles(self):
+    def is_identical_object_colors(self):
+        colors = [object.color for object in self.get_objects()]
+        return len(set(colors)) == 1
+
+    def is_identical_object_styles(self):
         styles = [object.style for object in self.get_objects()]
         return len(set(styles)) == 1
 

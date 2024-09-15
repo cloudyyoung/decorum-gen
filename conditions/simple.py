@@ -363,17 +363,24 @@ def generate_conditions_all_same(house: House):
     conditions: list[Condition] = []
 
     for room in house.rooms:
-        if room.is_identical_colors() and room.is_identical_styles():
+        no_room_objects = room.count_objects()
+
+        if room.is_identical_object_colors() and room.is_identical_object_styles():
             condition_str = (
                 f"Objects in the {room} must all have the same color and style."
             )
-            conditions.append(Condition(condition_str, 4))
-        elif room.is_identical_colors():
+            conditions.append(Condition(condition_str, 1 + no_room_objects))
+        elif room.is_identical_object_colors():
             condition_str = f"Objects in the {room} must all have the same color."
-            conditions.append(Condition(condition_str, 4))
-        elif room.is_identical_styles():
+            conditions.append(Condition(condition_str, 1 + no_room_objects))
+        elif room.is_identical_object_styles():
             condition_str = f"Objects in the {room} must all have the same style."
-            conditions.append(Condition(condition_str, 4))
+            conditions.append(Condition(condition_str, 1 + no_room_objects))
+        elif room.is_identical_colors():
+            condition_str = (
+                f"Objects and wall color in the {room} must all have the same color."
+            )
+            conditions.append(Condition(condition_str, 1 + no_room_objects))
 
     return conditions
 
