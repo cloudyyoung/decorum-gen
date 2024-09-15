@@ -14,7 +14,7 @@ class Room(ABC):
     """
 
     room_name: str = None
-    wall_color: WallColor = None
+    wall_color: Colors = None
     lamp: Lamp = None
     curio: Curio = None
     wall_hanging: WallHanging = None
@@ -105,7 +105,7 @@ class Room(ABC):
         curio_r = randint(0, 3)
         wall_hanging_r = randint(0, 3)
 
-        self.wall_color = WallColor.get_random()
+        self.wall_color = Colors.get_random()
         if lamp_r <= 2:
             self.lamp = Lamp.get_random(object_type=ObjectTypes.LAMP)
         if curio_r <= 2:

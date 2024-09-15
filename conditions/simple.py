@@ -322,7 +322,7 @@ def generate_conditions_room_wall_color_match_object_color(room: Room | RoomGrou
         wall_color = room.wall_color
         suffix = ""
 
-    matching_objects = room.get_objects(color=wall_color.color)
+    matching_objects = room.get_objects(color=wall_color)
     no_matching_objects = len(matching_objects)
     no_room_objects = room.count_objects()
 
@@ -353,6 +353,8 @@ def generate_conditions_identical_features(house: House):
         if room1.is_identical_features(room2):
             condition_str = f"The {room1} and the {room2} features must be identical (same objects and wall color)."
             conditions.append(Condition(condition_str, 6))
+
+    # TODO: "The features in any of two rooms must be identical (same objects and wall color)", 7
 
     return conditions
 

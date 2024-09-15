@@ -1,4 +1,5 @@
 from enum import StrEnum
+from random import choice
 
 
 class Colors(StrEnum):
@@ -6,6 +7,9 @@ class Colors(StrEnum):
     GREEN = "green"
     BLUE = "blue"
     YELLOW = "yellow"
+
+    def get_random():
+        return choice(list(Colors))
 
 
 class WarmColors:
