@@ -15,4 +15,5 @@ class NoOfEmptyRooms(ConditionsGenerator):
             condition_str = f"The house must contain {quantifier} 1 empty room."
             self.add_condition(condition_str, 2)
         else:
+            condition_str = "The house must not contain any empty rooms."
             self.add_condition(condition_str, 2)

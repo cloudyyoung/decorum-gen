@@ -1,9 +1,8 @@
 from pprint import pprint
+from conditions.condition import ConditionsGenerator
 from models.house import House
 from models.object import *
 import random
-
-from conditions.simple import *
 
 # random.seed(123)
 
@@ -20,34 +19,7 @@ house.kitchen.curio = YellowRetroCurio()
 print(house.get_display())
 
 
-conds = []
-conds += generate_conditions_empty_or_not_empty(house)
-
-conds += generate_conditions_empty_slots(house)
-
-conds += generate_conditions_house_contains(house)
-
-conds += generate_conditions_only_room_empty(house)
-
-conds += generate_conditions_no_of_empty_rooms(house)
-
-conds += generate_conditions_contain_each_object_type(house)
-conds += generate_condition_contain_each_color(house)
-conds += generate_condition_contain_each_style(house)
-
-conds += generate_conditions_not_contain_unless_repeated(house)
-
-conds += generate_conditions_house_wall_color_match_object_color(house)
-
-conds += generate_conditions_identical_features(house)
-
-conds += generate_conditions_all_same(house)
-
-conds += generate_conditions_each_of_style(house)
-conds += generate_conditions_each_of_object_type(house)
-conds += generate_conditions_each_of_color(house)
-
-conds += generate_conditions_house_common_features(house)
+conds = ConditionsGenerator.generate_all_conditions(house)
 
 
 with open("conditions.txt", "w") as f:

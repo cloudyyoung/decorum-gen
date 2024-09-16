@@ -39,3 +39,14 @@ class ConditionsGenerator(ABC):
 
     @abstractmethod
     def generate(self, house: House) -> None: ...
+
+    @staticmethod
+    def generate_all_conditions(house: House) -> list:
+        subclasses = ConditionsGenerator.__subclasses__()
+        print(subclasses)
+        conditions = []
+        for subclass in subclasses:
+            generator = subclass()
+            generator.generate(house)
+            conditions.extend(generator.conditions)
+        return conditions

@@ -24,39 +24,49 @@ class ContainsObjects(ConditionsGenerator):
         # Each color
         for color in list(Colors):
             no_objects = room.count_objects(color=color)
-            self.generate_condition(no_objects, color=color)
+            self.generate_condition(room, no_objects, color=color)
 
         # Each style
         for style in list(Styles):
             no_objects = room.count_objects(style=style)
-            self.generate_condition(no_objects, style=style)
+            self.generate_condition(room, no_objects, style=style)
 
         # Each object type
         for object_type in list(ObjectTypes):
             no_objects = room.count_objects(object_type=object_type)
-            self.generate_condition(no_objects, object_type=object_type)
+            self.generate_condition(room, no_objects, object_type=object_type)
 
         # Each combination of color and style
         for color, style in product(list(Colors), list(Styles)):
             no_objects = room.count_objects(color=color, style=style)
-            self.generate_condition(no_objects, color=color, style=style)
+            self.generate_condition(room, no_objects, color=color, style=style)
 
         # Each combination of color and object type
         for color, object_type in product(list(Colors), list(ObjectTypes)):
             no_objects = room.count_objects(color=color, object_type=object_type)
-            self.generate_condition(no_objects, color=color, object_type=object_type)
+            self.generate_condition(
+                room,
+                no_objects,
+                color=color,
+                object_type=object_type,
+            )
 
         # Each combination of style and object type
         for style, object_type in product(list(Styles), list(ObjectTypes)):
             no_objects = room.count_objects(style=style, object_type=object_type)
-            self.generate_condition(no_objects, style=style, object_type=object_type)
+            self.generate_condition(
+                room,
+                no_objects,
+                style=style,
+                object_type=object_type,
+            )
 
         # Each specific object
         for color, style, object_type in product(
             list(Colors), list(Styles), list(ObjectTypes)
         ):
             no_objects = room.count_objects(object_type, color, style)
-            self.generate_condition(no_objects, object_type, color, style)
+            self.generate_condition(no_objects, room, object_type, color, style)
 
     def generate_condition(
         self,
