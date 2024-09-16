@@ -19,9 +19,6 @@ def format_object_text(quantity: int, object_type=None, color=None, style=None):
             subject += " objects"
     subject = subject.strip()
 
-    if subject.find(" ") != -1:
-        subject = subject.capitalize()
-
     return subject
 
 
