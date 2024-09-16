@@ -64,7 +64,7 @@ def generate_conditions_room_contains(room: Room | RoomGroup):
                 difficulty_points = 1
                 condition_str = f"The {room} must not contain {subject_str}."
             else:
-                difficulty_points = max(1, conditions_value + 1)
+                difficulty_points = max(1, conditions_value)
                 condition_str = f"The {room} must not contain any {subject_str}."
             condition = Condition(condition_str, difficulty_points)
             conditions.append(condition)
