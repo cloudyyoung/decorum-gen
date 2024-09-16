@@ -408,8 +408,8 @@ def generate_conditions_each_of_object_type(house: House):
         objects = set(objects)
 
         if len(objects) == 4:
-            object_str = format_object_text(1, object_type=object_type)
-            condition_str = f"The house must contain each {object_str} at least once."
+            object_str = format_object_text(4, object_type=object_type)
+            condition_str = f"The house must contain all 4 {object_str}."
             conditions.append(Condition(condition_str, 4))
 
     return conditions
@@ -423,8 +423,8 @@ def generate_conditions_each_of_color(house: House):
         objects = set(objects)
 
         if len(objects) == 3:
-            object_str = format_object_text(1, color=color)
-            condition_str = f"The house must contain each {object_str} at least once."
+            object_str = format_object_text(3, color=color)
+            condition_str = f"The house must contain all 3 {object_str}."
             conditions.append(Condition(condition_str, 4))
 
     return conditions
