@@ -55,11 +55,14 @@ class RoomGroup:
     def is_empty(self):
         return all([room.is_empty() for room in self.rooms])
 
-    def count_empty(self):
+    def count_empty_rooms(self):
         return len([room for room in self.rooms if room.is_empty()])
 
     def count_slots(self):
         return sum([room.count_slots() for room in self.rooms])
+    
+    def count_empty_slots(self):
+        return sum([room.count_empty_slots() for room in self.rooms])
 
     def count_object_slots(self):
         return sum([room.count_object_slots() for room in self.rooms])

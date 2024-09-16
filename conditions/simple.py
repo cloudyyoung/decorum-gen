@@ -28,6 +28,20 @@ def generate_conditions_empty_or_not_empty(house: House):
     return conditions
 
 
+def generate_conditions_empty_slots(house: House):
+    conditions: list[Condition] = []
+
+    no_empty_slots = house.count_empty_slots()
+    if no_empty_slots > 0:
+        quantifier = QUANTIFIERS[2]
+        condition_str = (
+            f"The house must contain {quantifier} {no_empty_slots} empty slots."
+        )
+        conditions.append(Condition(condition_str, 2))
+
+    return conditions
+
+
 def generate_conditions_house_contains(house: House):
     conditions = []
     conditions += generate_conditions_room_contains(house)
@@ -122,7 +136,7 @@ def generate_conditions_room_contains(room: Room | RoomGroup):
 def generate_conditions_only_room_empty(house: House):
     conditions: list[Condition] = []
 
-    no_empty_rooms = house.count_empty()
+    no_empty_rooms = house.count_empty_rooms()
     if no_empty_rooms == 1:
         # Find the empty room
         empty_room = None
@@ -142,7 +156,7 @@ def generate_conditions_no_of_empty_rooms(house: House):
     conditions: list[Condition] = []
 
     quantifiers = ["at least", "at most", "exactly"]
-    no_empty_rooms = house.count_empty()
+    no_empty_rooms = house.count_empty_rooms()
     if no_empty_rooms > 1:
         quantifier = quantifiers[randint(0, 2)]
         condition_str = (
