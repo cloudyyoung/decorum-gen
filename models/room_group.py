@@ -31,6 +31,9 @@ class RoomGroup:
                 room.get_objects(object_type=object_type, color=color, style=style)
             )
         return objects
+    
+    def get_empty_rooms(self):
+        return [room for room in self.rooms if room.is_empty()]
 
     def count_objects(
         self,
@@ -56,7 +59,7 @@ class RoomGroup:
         return all([room.is_empty() for room in self.rooms])
 
     def count_empty_rooms(self):
-        return len([room for room in self.rooms if room.is_empty()])
+        return len(self.get_empty_rooms())
 
     def count_slots(self):
         return sum([room.count_slots() for room in self.rooms])

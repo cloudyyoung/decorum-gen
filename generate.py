@@ -5,16 +5,25 @@ import random
 
 from conditions.simple import *
 
+# random.seed(123)
+
 house = House()
 house.get_random()
+# house.bathroom.wall_hanging = RedModernWallHanging()
+# house.bedroom.wall_hanging = GreenAntiqueWallHanging()
+# house.kitchen.wall_hanging = BlueRetroWallHanging()
+house.living_room.wall_hanging = YellowUnsualWallHanging()
+house.bedroom.lamp = YellowAntiqueLamp()
+# house.kitchen.curio = RedUnusualCurio()
+# house.living_room.wall_hanging = RedModernWallHanging()
+house.kitchen.curio = YellowRetroCurio()
 print(house.get_display())
-house.bathroom.wall_hanging = RedModernWallHanging()
-house.bedroom.lamp = RedRetroLamp()
-house.kitchen.curio = RedUnusualCurio()
-house.living_room.wall_hanging = RedModernWallHanging()
+
 
 conds = []
 conds += generate_conditions_empty_or_not_empty(house)
+
+conds += generate_conditions_empty_slots(house)
 
 conds += generate_conditions_house_contains(house)
 

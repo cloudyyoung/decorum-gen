@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
+from random import *
 
+from constants.quantifiers import Quantifiers
 from models.house import House
 
 
@@ -28,6 +30,12 @@ class ConditionsGenerator(ABC):
 
     def __init__(self) -> None:
         self.conditions = []
+
+    def add_condition(self, condition_string: str, difficulty_points: int) -> None:
+        self.conditions.append(Condition(condition_string, difficulty_points))
+
+    def get_random_quantifier(self) -> Quantifiers:
+        return choice(list(Quantifiers))
 
     @abstractmethod
     def generate(self, house: House) -> None: ...
