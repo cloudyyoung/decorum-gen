@@ -441,7 +441,7 @@ def generate_conditions_house_common_features(house: House):
 def generate_conditions_common_feature_each_room(room_group: House | RoomGroup):
     conditions: list[Condition] = []
 
-    def generate_condition_each_room(
+    def generate_condition_object_each_room(
         quantity, object_type=None, color=None, style=None
     ):
         conditions_value = [object_type, color, style].count(None)
@@ -470,19 +470,42 @@ def generate_conditions_common_feature_each_room(room_group: House | RoomGroup):
                 condition = Condition(condition_str, difficulty_points)
                 conditions.append(condition)
 
+    def generate_condition_feature_each_room(quantity, color):
+        if isinstance(room_group, House):
+            room_group_str = "Each room"
+        else:
+            room_group_str = f"The {room_group}"
+
+        if quantity == 0:
+            ...
+        else:
+            quantifier = QUANTIFIERS[0]
+            difficulty_points = quantity
+
+            if quantity == 1:
+                condition_str = f"{room_group_str} must contain {color} (as objects and/or wall color) {quantifier} once."
+                conditions.append(Condition(condition_str, difficulty_points))
+            else:
+                difficulty_points += 1
+                times_str = number_to_times(quantity)
+                condition_str = f"{room_group_str} must contain {color} (as objects and/or wall color) {quantifier} {times_str}."
+                condition = Condition(condition_str, difficulty_points)
+                conditions.append(condition)
+
     # generate_condition_each_room(room_group.count_common_objects())
 
     for color in list(Colors):
         no_objects = room_group.count_common_objects(color=color)
-        generate_condition_each_room(no_objects, color=color)
+        generate_condition_object_each_room(no_objects, color=color)
+        generate_condition_feature_each_room(no_objects, color=color)
 
     for style in list(Styles):
         no_objects = room_group.count_common_objects(style=style)
-        generate_condition_each_room(no_objects, style=style)
+        generate_condition_object_each_room(no_objects, style=style)
 
     for object_type in list(ObjectTypes):
         no_objects = room_group.count_common_objects(object_type=object_type)
-        generate_condition_each_room(no_objects, object_type=object_type)
+        generate_condition_object_each_room(no_objects, object_type=object_type)
 
     # Remove duplicates in conditions
     conditions = list(set(conditions))
