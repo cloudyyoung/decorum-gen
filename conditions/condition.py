@@ -1,5 +1,9 @@
-class Condition:
+from abc import ABC, abstractmethod
 
+from models.house import House
+
+
+class Condition:
     def __init__(self, condition: str, difficulty_points: int):
         self.condition = condition
         self.difficulty_points = difficulty_points
@@ -17,3 +21,13 @@ class Condition:
         if not other or not isinstance(other, Condition):
             return False
         return self.condition == other.condition
+
+
+class ConditionsGenerator(ABC):
+    conditions: list[Condition] = None
+
+    def __init__(self) -> None:
+        self.conditions = []
+
+    @abstractmethod
+    def generate(self, house: House) -> None: ...
