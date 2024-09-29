@@ -48,5 +48,5 @@ class ConditionsGenerator(ABC):
         for subclass in subclasses:
             generator = subclass()
             generator.generate(house)
-            decorum_generator.conditions.extend(generator.conditions)
+            conditions.extend(generator.conditions)
         return conditions
