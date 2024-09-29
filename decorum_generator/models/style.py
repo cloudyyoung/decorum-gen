@@ -1,6 +1,6 @@
 from abc import ABC
 
-from constants.styles import Styles
+from decorum_generator.constants.styles import Styles
 
 
 class Style(ABC): ...

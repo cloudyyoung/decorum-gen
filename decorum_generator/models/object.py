@@ -2,12 +2,12 @@ from abc import ABC
 import random
 from typing import Self, Type
 
-from constants.colors import Colors
-from constants.objects import ObjectTypes
-from constants.styles import Styles
-from models.color import Red, Yellow, Blue, Green
-from models.style import Modern, Antique, Retro, Unusual
-from models.feature import Feature
+from decorum_generator.constants.colors import Colors
+from decorum_generator.constants.objects import ObjectTypes
+from decorum_generator.constants.styles import Styles
+from decorum_generator.models.color import Red, Yellow, Blue, Green
+from decorum_generator.models.style import Modern, Antique, Retro, Unusual
+from decorum_generator.models.feature import Feature
 
 
 class Object(Feature, ABC):

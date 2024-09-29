@@ -1,5 +1,5 @@
-from conditions.condition import ConditionsGenerator
-from conditions.utils import format_object_text, number_to_times
+from decorum_generator.conditions.condition import ConditionsGenerator
+from decorum_generator.conditions.utils import format_object_text, number_to_times
 
 
 class NotContainUnlessRepeated(ConditionsGenerator):

@@ -1,4 +1,4 @@
-from conditions.condition import ConditionsGenerator
+from decorum_generator.conditions.condition import ConditionsGenerator
 
 
 class AllTheSame(ConditionsGenerator):

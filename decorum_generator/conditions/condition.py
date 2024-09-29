@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from random import *
 
-from constants.quantifiers import Quantifiers
-from models.house import House
+from decorum_generator.constants.quantifiers import Quantifiers
+from decorum_generator.models.house import House
 
 
 class Condition:
@@ -48,5 +48,5 @@ class ConditionsGenerator(ABC):
         for subclass in subclasses:
             generator = subclass()
             generator.generate(house)
-            conditions.extend(generator.conditions)
+            decorum_generator.conditions.extend(generator.conditions)
         return conditions

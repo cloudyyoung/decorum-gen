@@ -1,10 +1,10 @@
 from abc import ABC
 from random import randint
 from typing import Self
-from constants.objects import ObjectTypes
-from constants.styles import Styles
-from constants.colors import Colors
-from models.object import Curio, Lamp, WallHanging
+from decorum_generator.constants.objects import ObjectTypes
+from decorum_generator.constants.styles import Styles
+from decorum_generator.constants.colors import Colors
+from decorum_generator.models.object import Curio, Lamp, WallHanging
 
 
 class Room(ABC):

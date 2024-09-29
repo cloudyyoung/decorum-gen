@@ -1,5 +1,5 @@
-from models.room import Bedroom, Bathroom, LivingRoom, Kitchen, Room
-from models.room_group import RoomGroup
+from decorum_generator.models.room import Bedroom, Bathroom, LivingRoom, Kitchen, Room
+from decorum_generator.models.room_group import RoomGroup
 
 
 class House(RoomGroup):

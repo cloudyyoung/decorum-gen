@@ -1,7 +1,7 @@
-from conditions.condition import ConditionsGenerator
-from conditions.utils import format_object_text
-from models.room import Room
-from models.room_group import RoomGroup
+from decorum_generator.conditions.condition import ConditionsGenerator
+from decorum_generator.conditions.utils import format_object_text
+from decorum_generator.models.room import Room
+from decorum_generator.models.room_group import RoomGroup
 
 
 class RoomWallColorMatchesObjectColors(ConditionsGenerator):

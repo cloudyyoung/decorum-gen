@@ -1,6 +1,6 @@
 from abc import ABC
 
-from constants.colors import Colors
+from decorum_generator.constants.colors import Colors
 
 
 class Color(ABC): ...

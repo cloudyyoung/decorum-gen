@@ -1,13 +1,13 @@
 from itertools import product
-from conditions.condition import ConditionsGenerator
-from conditions.utils import format_object_text
-from constants.colors import Colors
-from constants.objects import ObjectTypes
-from constants.quantifiers import Quantifiers
-from constants.styles import Styles
-from models.house import House
-from models.room import Room
-from models.room_group import RoomGroup
+from decorum_generator.conditions.condition import ConditionsGenerator
+from decorum_generator.conditions.utils import format_object_text
+from decorum_generator.constants.colors import Colors
+from decorum_generator.constants.objects import ObjectTypes
+from decorum_generator.constants.quantifiers import Quantifiers
+from decorum_generator.constants.styles import Styles
+from decorum_generator.models.house import House
+from decorum_generator.models.room import Room
+from decorum_generator.models.room_group import RoomGroup
 
 
 class ContainsObjects(ConditionsGenerator):

@@ -1,9 +1,9 @@
 from collections import defaultdict
-from constants.colors import Colors
-from constants.objects import ObjectTypes
-from constants.styles import Styles
-from models.object import Object
-from models.room import Room
+from decorum_generator.constants.colors import Colors
+from decorum_generator.constants.objects import ObjectTypes
+from decorum_generator.constants.styles import Styles
+from decorum_generator.models.object import Object
+from decorum_generator.models.room import Room
 
 
 class RoomGroup:
@@ -31,7 +31,7 @@ class RoomGroup:
                 room.get_objects(object_type=object_type, color=color, style=style)
             )
         return objects
-    
+
     def get_empty_rooms(self):
         return [room for room in self.rooms if room.is_empty()]
 
@@ -63,7 +63,7 @@ class RoomGroup:
 
     def count_slots(self):
         return sum([room.count_slots() for room in self.rooms])
-    
+
     def count_empty_slots(self):
         return sum([room.count_empty_slots() for room in self.rooms])
 

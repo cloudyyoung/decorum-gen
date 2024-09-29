@@ -1,9 +1,9 @@
-from conditions.condition import ConditionsGenerator
-from conditions.utils import format_object_text, number_to_times
-from constants.colors import Colors
-from constants.objects import ObjectTypes
-from constants.styles import Styles
-from models.house import House
+from decorum_generator.conditions.condition import ConditionsGenerator
+from decorum_generator.conditions.utils import format_object_text, number_to_times
+from decorum_generator.constants.colors import Colors
+from decorum_generator.constants.objects import ObjectTypes
+from decorum_generator.constants.styles import Styles
+from decorum_generator.models.house import House
 
 
 class ContainsKinds(ConditionsGenerator):

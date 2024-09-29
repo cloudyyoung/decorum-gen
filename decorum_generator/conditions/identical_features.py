@@ -1,5 +1,5 @@
 from itertools import combinations
-from conditions.condition import ConditionsGenerator
+from decorum_generator.conditions.condition import ConditionsGenerator
 
 
 class IdenticalFeatures(ConditionsGenerator):
