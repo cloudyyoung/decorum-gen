@@ -1,7 +1,7 @@
 from pprint import pprint
-from conditions.condition import ConditionsGenerator
-from models.house import House
-from models.object import *
+from decorum_generator.conditions.condition import ConditionsGenerator
+from decorum_generator.models.house import House
+from decorum_generator.models.object import *
 import random
 
 # random.seed(123)

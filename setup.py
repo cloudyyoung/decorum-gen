@@ -6,7 +6,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         # List dependencies here, e.g., 'requests>=2.25.1'
-        "setuptools>=75.1.0",
+        # "setuptools>=75.1.0",
     ],
     author="Yunfan Yang",
     author_email="yunfan.yang1@outlook.com",
