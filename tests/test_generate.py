@@ -9,6 +9,11 @@ def test_any():
     game.generate_conditions()
     pprint(game.conditions)
 
+    with open("test_any.txt", "w") as f:
+        f.write(game.solution_house.get_display())
+        f.write("\n")
+        f.write("\n".join([str(c.__repr__()) for c in game.conditions]))
+
 
 if __name__ == "__main__":
     test_any()

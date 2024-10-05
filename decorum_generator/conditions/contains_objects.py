@@ -66,7 +66,7 @@ class ContainsObjects(ConditionsGenerator):
             list(Colors), list(Styles), list(ObjectTypes)
         ):
             no_objects = room.count_objects(object_type, color, style)
-            self.generate_condition(no_objects, room, object_type, color, style)
+            self.generate_condition(room, no_objects, object_type, color, style)
 
     def generate_condition(
         self,
