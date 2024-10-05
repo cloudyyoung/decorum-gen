@@ -49,6 +49,11 @@ class ConditionsGenerator(ABC):
         if len(condition_group) > 0:
             self.conditions.append(condition_group)
 
+    def create_condition_group(self):
+        condition_group = ConditionGroup()
+        self.conditions.append(condition_group)
+        return condition_group
+
     def get_random_quantifier(self) -> Quantifiers:
         return choice(list(Quantifiers))
 

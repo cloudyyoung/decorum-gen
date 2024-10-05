@@ -1,3 +1,4 @@
+from decorum_generator.conditions.condition import ConditionGroup
 from decorum_generator.conditions.conditions_generator import ConditionsGenerator
 from decorum_generator.conditions.utils import format_object_text, number_to_times
 from decorum_generator.constants.colors import Colors
@@ -20,29 +21,27 @@ class ContainsKinds(ConditionsGenerator):
         smallest_no = min(no_wall_hanging, no_lamp, no_curio)
         largest_no = max(no_wall_hanging, no_lamp, no_curio)
 
+        # Min/max number of each object type
+        no_group = self.create_condition_group()
         if smallest_no > 0:
-            condition_str = (
-                f"The house must contain at least {smallest_no} of each object type."
+            no_group.add(
+                f"The house must contain at least {smallest_no} of each object type.", 3
             )
-            self.add_condition(condition_str, 3)
-
         if largest_no > 0:
-            condition_str = (
-                f"The house must contain at most {largest_no} of each object type."
+            no_group.add(
+                f"The house must contain at most {largest_no} of each object type.", 3
             )
-            self.add_condition(condition_str, 3)
 
         # Same number of each object type
         if no_wall_hanging == no_lamp == no_curio:
-            condition_str = (
-                "The house must contain the same number of each object type."
+            same_no_group = self.create_condition_group()
+            same_no_group.add(
+                "The house must contain the same number of each object type.", 5
             )
-            self.add_condition(condition_str, 5)
-
-            condition_str = (
-                f"The house must contain exactly {no_wall_hanging} of each object type."
+            same_no_group.add(
+                f"The house must contain exactly {no_wall_hanging} of each object type.",
+                3,
             )
-            self.add_condition(condition_str, 3)
 
     def generate_colors(self, house: House) -> None:
         no_red = house.count_objects(color=Colors.RED)
@@ -53,32 +52,34 @@ class ContainsKinds(ConditionsGenerator):
         smallest_no = min(no_red, no_green, no_blue, no_yellow)
         largest_no = max(no_red, no_green, no_blue, no_yellow)
 
+        # Max/min number of each color
+        no_group = self.create_condition_group()
         if smallest_no > 0:
             if smallest_no <= 2:  # Once and Twice
                 times_str = number_to_times(smallest_no)
-                condition_str = (
-                    f"The house must contain each color at least {times_str}."
-                )
-                self.add_condition(condition_str, 3)
+                condition_str = f"The house must contain each color {times_str}."
+                no_group.add(condition_str, 3)
             else:  # 3 times or more
                 subject_str = format_object_text(smallest_no)
                 condition_str = f"The house must contain at least {smallest_no} {subject_str} of each color."
-                self.add_condition(condition_str, 3)
-
+                no_group.add(condition_str, 3)
         if largest_no > 0:
             subject_str = format_object_text(largest_no)
             condition_str = f"The house must contain at most {largest_no} {subject_str} of each color."
-            self.add_condition(condition_str, 3)
+            no_group.add(condition_str, 3)
 
+        # Same number of each color
         if no_red == no_green == no_blue == no_yellow:
+            same_no_group = self.create_condition_group()
+
             condition_str = "The house must contain the same number of each color."
-            self.add_condition(condition_str, 4)
+            same_no_group.add(condition_str, 4)
 
             subject_str = format_object_text(no_red)
             condition_str = (
                 f"The house must contain exactly {no_red} {subject_str} of each color."
             )
-            self.add_condition(condition_str, 3)
+            same_no_group.add(condition_str, 3)
 
     def generate_styles(self, house: House) -> None:
         no_modern = house.count_objects(style=Styles.MODERN)

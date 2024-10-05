@@ -7,9 +7,7 @@ class AllTheSame(ConditionsGenerator):
         for room in self.house.rooms:
             no_room_objects = room.count_objects()
             no_room_wall_colors = 1 if room.wall_color else 0
-
-            # Object colors and styles
-            group = ConditionGroup()
+            group = self.create_condition_group()
 
             if room.is_identical_object_colors() and room.is_identical_object_styles():
                 condition_str = (
@@ -28,5 +26,3 @@ class AllTheSame(ConditionsGenerator):
             if room.is_identical_colors():
                 condition_str = f"Everything in the {room} must all have the same color (objects and wall color)."
                 group.add(condition_str, 1 + no_room_objects + no_room_wall_colors)
-
-            self.add_condition_group(group)
