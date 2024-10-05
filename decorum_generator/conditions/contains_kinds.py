@@ -90,21 +90,27 @@ class ContainsKinds(ConditionsGenerator):
         smallest_no = min(no_modern, no_antique, no_retro, no_unusual)
         largest_no = max(no_modern, no_antique, no_retro, no_unusual)
 
+        # Max/min number of each style
+        no_group = self.create_condition_group()
+
         if smallest_no > 0:
             condition_str = (
                 f"The house must contain at least {smallest_no} of each style."
             )
-            self.add_condition(condition_str, 4)
+            no_group.add(condition_str, 4)
 
         if largest_no > 0:
             condition_str = (
                 f"The house must contain at most {largest_no} of each style."
             )
-            self.add_condition(condition_str, 4)
+            no_group.add(condition_str, 4)
 
+        # Same number of each style
         if no_modern == no_antique == no_retro == no_unusual:
+            same_no_group = self.create_condition_group()
+
             condition_str = "The house must contain the same number of each style."
-            self.add_condition(condition_str, 5)
+            same_no_group.add(condition_str, 5)
 
             condition_str = f"The house must contain exactly {no_modern} of each style."
-            self.add_condition(condition_str, 4)
+            same_no_group.add(condition_str, 4)
