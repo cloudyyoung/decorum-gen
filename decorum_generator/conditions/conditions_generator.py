@@ -49,8 +49,8 @@ class ConditionsGenerator(ABC):
         if len(condition_group) > 0:
             self.conditions.append(condition_group)
 
-    def create_condition_group(self):
-        condition_group = ConditionGroup()
+    def create_condition_group(self, num_of_conditions: int = 1) -> ConditionGroup:
+        condition_group = ConditionGroup(num_of_conditions)
         self.conditions.append(condition_group)
         return condition_group
 

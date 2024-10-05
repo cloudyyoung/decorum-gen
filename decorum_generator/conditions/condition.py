@@ -1,4 +1,5 @@
 from random import sample
+from typing import Any, Self
 
 
 class Condition:
@@ -21,7 +22,18 @@ class Condition:
         return self.condition == other.condition
 
 
-class ConditionGroup(list[Condition]):
+class ConditionGroup(list[Condition | Self]):
+    num_of_conditions: int
+
+    def __init__(self, num_of_conditions: int = 1):
+        super().__init__()
+        self.num_of_conditions = num_of_conditions
+
+    def append(self, object: Self | Any) -> None:
+        if object is None:
+            return
+        return super().append(object)
+
     @property
     def flattened(self) -> list[Condition]:
         conditions = []
@@ -35,6 +47,6 @@ class ConditionGroup(list[Condition]):
     def add(self, condition_str, difficulty_points):
         self.append(Condition(condition_str, difficulty_points))
 
-    def pick(self, num_of_conditions: int = 1) -> list[Condition]:
-        num_of_conditions = min(num_of_conditions, len(self.flattened))
+    def pick(self) -> list[Condition]:
+        num_of_conditions = min(self.num_of_conditions, len(self.flattened))
         return sample(self.flattened, num_of_conditions) or []
