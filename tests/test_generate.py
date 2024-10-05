@@ -9,7 +9,7 @@ import random
 
 def test_any():
     house = House()
-    house.get_random()
+    house.randomize()
     # house.bathroom.wall_hanging = RedModernWallHanging()
     # house.bedroom.wall_hanging = GreenAntiqueWallHanging()
     # house.kitchen.wall_hanging = BlueRetroWallHanging()

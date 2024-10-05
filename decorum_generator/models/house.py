@@ -58,8 +58,8 @@ class House(RoomGroup):
             string += room.get_display() + "\n"
         return string
 
-    def get_random(self):
-        self.bedroom.get_random()
-        self.bathroom.get_random()
-        self.living_room.get_random()
-        self.kitchen.get_random()
+    def randomize(self):
+        self.bedroom.randomize()
+        self.bathroom.randomize()
+        self.living_room.randomize()
+        self.kitchen.randomize()

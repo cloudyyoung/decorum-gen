@@ -109,7 +109,7 @@ class Room(ABC):
     def __str__(self) -> str:
         return self.room_name
 
-    def get_random(self):
+    def randomize(self):
         lamp_r = randint(0, 3)
         curio_r = randint(0, 3)
         wall_hanging_r = randint(0, 3)

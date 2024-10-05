@@ -1,0 +1,63 @@
+from decorum_generator.conditions.condition import (
+    Condition,
+    ConditionGroup,
+    ConditionsGenerator,
+)
+from decorum_generator.models.house import House
+
+from pulp import LpMaximize, LpProblem, LpVariable, lpSum
+
+
+class GameGenerator:
+    num_of_players: int
+    total_diffilculty_points: int
+    house: House
+    conditions: list[Condition | ConditionGroup]
+
+    def __init__(self, num_of_players: int, total_diffilculty_points: int) -> None:
+        self.num_of_players = num_of_players
+        self.total_diffilculty_points = total_diffilculty_points
+        self.house = House()
+        self.house.randomize()
+
+    def generate_conditions(self) -> list:
+        subclasses = ConditionsGenerator.__subclasses__()
+        for subclass in subclasses:
+            generator = subclass()
+            generator.generate(self.house)
+            self.conditions.extend(generator.conditions)
+
+    def pick_conditions(self) -> list:
+        conditions = ConditionsGenerator.generate_conditions(self.house)
+
+        for t in range(0, self.num_of_players):
+            knapsack_problem = LpProblem("Knapsack Problem", LpMaximize)
+
+            # Decision variable: 0/1 for each condition selected?
+            x = LpVariable.dicts("condition", conditions, 0, 1, cat="Integer")
+            # Objective function: maximize total value
+            knapsack_problem += (
+                lpSum([x[c] * c.difficulty_points for c in conditions]),
+                "Total_Difficulty_Points",
+            )
+
+            # Constraint: total difficulty points should be less than or equal to the total difficulty points
+            knapsack_problem += (
+                lpSum([x[c] * c.difficulty_points for c in conditions])
+                <= self.total_diffilculty_points,
+                "Total_Difficulty_Points_Constraint",
+            )
+
+            # Decision variable: number of sets
+            y = LpVariable("num_of_sets", 0, cat="Integer")
+            # Constraint: the number of selected conditions must be multiplier of number of players
+            knapsack_problem += (
+                lpSum([x[c] for c in conditions]) == y * self.num_of_players,
+                "Number_of_Selected_Conditions_Constraint",
+            )
+
+            knapsack_problem.solve()
+
+            selected_conditions = [c for c in conditions if x[c].value() == 1]
+
+            return selected_conditions
