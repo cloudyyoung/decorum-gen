@@ -1,5 +1,5 @@
-from decorum_generator.conditions.condition import Condition, ConditionGroup
- decorum_generator.models.
+from decorum_generator.conditions.condition import Condition
+from decorum_generator.conditions.conditions_generator import ConditionsGenerator
 from decorum_generator.models.house import House
 
 from pulp import LpMaximize, LpProblem, LpVariable, lpSum
