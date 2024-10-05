@@ -27,7 +27,7 @@ class ConditionGroup(list[Condition | "ConditionGroup"]):
         conditions = []
         for condition in self:
             if isinstance(condition, "ConditionGroup"):
-                conditions.extend(condition.get_flattened())
+                conditions.extend(condition.flattened)
             else:
                 conditions.append(condition)
         return conditions
