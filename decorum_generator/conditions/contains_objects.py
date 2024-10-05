@@ -105,11 +105,10 @@ class ContainsObjects(ConditionsGenerator):
             difficulty_points = 1
             condition_str = f"The {room} must not contain {subject_str}."
             self.add_condition(condition_str, difficulty_points)
-            return
-
-        difficulty_points = max(1, missing_condition_components)
-        condition_str = f"The {room} must not contain any {subject_str}."
-        self.add_condition(condition_str, difficulty_points)
+        else:
+            difficulty_points = max(1, missing_condition_components)
+            condition_str = f"The {room} must not contain any {subject_str}."
+            self.add_condition(condition_str, difficulty_points)
 
     def generate_some_objects(
         self,
@@ -125,23 +124,24 @@ class ContainsObjects(ConditionsGenerator):
             self.add_condition(condition_str, difficulty_points)
             return
 
-        if isinstance(room, House):
-            # House only gets "at least" conditions
-            quantifier = Quantifiers.AT_LEAST
-        else:
-            quantifier = self.get_random_quantifier()
+        quantifiers = list(Quantifiers)
+        if isinstance(room, House):  # House only gets "at least" conditions
+            quantifiers = [Quantifiers.AT_LEAST]
 
-        difficulty_points = max(1, 3 - missing_condition_components)
+        group = self.create_condition_group()
 
-        if quantity >= 5 and quantifier == Quantifiers.AT_LEAST:
-            difficulty_points += 1
-        elif quantity >= 5 and quantifier == Quantifiers.EXACTLY:
-            difficulty_points += 2
+        for quantifier in quantifiers:
+            difficulty_points = max(1, 3 - missing_condition_components)
 
-        if quantifier == Quantifiers.EXACTLY:
-            difficulty_points = max(2, difficulty_points)
+            if quantity >= 5 and quantifier == Quantifiers.AT_LEAST:
+                difficulty_points += 1
+            elif quantity >= 5 and quantifier == Quantifiers.EXACTLY:
+                difficulty_points += 2
 
-        condition_str = (
-            f"The {room} must contain {quantifier} {quantity} {subject_str}."
-        )
-        self.add_condition(condition_str, difficulty_points)
+            if quantifier == Quantifiers.EXACTLY:
+                difficulty_points = max(2, difficulty_points)
+
+            condition_str = (
+                f"The {room} must contain {quantifier} {quantity} {subject_str}."
+            )
+            group.add(condition_str, difficulty_points)
