@@ -13,27 +13,16 @@ def test_any():
     # house.bathroom.wall_hanging = RedModernWallHanging()
     # house.bedroom.wall_hanging = GreenAntiqueWallHanging()
     # house.kitchen.wall_hanging = BlueRetroWallHanging()
-    house.living_room.wall_hanging = YellowUnsualWallHanging()
-    house.bedroom.lamp = YellowAntiqueLamp()
+    # house.living_room.wall_hanging = YellowUnsualWallHanging()
+    # house.bedroom.lamp = YellowAntiqueLamp()
     # house.kitchen.curio = RedUnusualCurio()
     # house.living_room.wall_hanging = RedModernWallHanging()
     house.kitchen.curio = YellowRetroCurio()
     print(house.get_display())
 
-    conds = ConditionsGenerator.generate_all_conditions(house)
+    conds = ConditionsGenerator.pick_conditions(house, 3, 120)
+    pprint(conds)
 
-    # with open("conditions.txt", "w") as f:
-    #     f.write(house.get_display())
 
-    #     f.write("\n\nConditions\n\n")
-    #     for c in conds:
-    #         f.write(f"({c} {c.difficulty_points} pts)\n")
-
-    # Randomly draw 12 conditions
-    random.shuffle(conds)
-    random.shuffle(conds)
-    random.shuffle(conds)
-    random.shuffle(conds)
-    random.shuffle(conds)
-    random.shuffle(conds)
-    pprint(conds[:12])
+if __name__ == "__main__":
+    test_any()

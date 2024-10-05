@@ -7,9 +7,10 @@ setup(
     install_requires=[
         # List dependencies here, e.g., 'requests>=2.25.1'
         # "setuptools>=75.1.0",
+        "pulp>=2.9.0",
     ],
     author="Yunfan Yang",
-    author_email="yunfan.yang1@outlook.com",
+    author_email="yunfan.yang74@outlook.com",
     description="A decorum (board game) generator",
     url="https://github.com/cloudyyoung/decorum-generator",
 )
