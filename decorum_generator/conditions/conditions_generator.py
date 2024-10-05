@@ -67,4 +67,10 @@ class ConditionsGenerator(ABC):
     def generate(self) -> None: ...
 
     def pick(self) -> list[Condition]:
-        return self.get_flattened_contions()
+        conditions = []
+        for condition in self.conditions:
+            if isinstance(condition, ConditionGroup):
+                conditions.extend(condition.pick())
+            else:
+                conditions.append(condition)
+        return conditions
