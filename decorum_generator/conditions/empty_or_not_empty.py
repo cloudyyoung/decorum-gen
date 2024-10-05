@@ -24,3 +24,6 @@ class EmptyOrNotEmpty(ConditionsGenerator):
         if no_empty_rooms == 1:
             empty_room = house.get_empty_rooms()[0]
             self.add_condition(f"The {empty_room} must be the only empty room.", 2)
+
+    def pick(self):
+        super().pick(5)
