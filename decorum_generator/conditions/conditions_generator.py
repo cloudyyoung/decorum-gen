@@ -1,8 +1,6 @@
 from abc import ABC, abstractmethod
-from random import choice, sample
 from typing import Iterable
 from decorum_generator.conditions.condition import Condition, ConditionGroup
-from decorum_generator.constants.quantifiers import Quantifiers
 from decorum_generator.models.house import House
 
 
