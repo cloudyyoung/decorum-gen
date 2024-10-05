@@ -32,5 +32,8 @@ class ConditionGroup(list[Condition | "ConditionGroup"]):
                 conditions.append(condition)
         return conditions
 
+    def add(self, condition_str, difficulty_points):
+        self.append(Condition(condition_str, difficulty_points))
+
     def pick(self, num_of_conditions: int = 1) -> Condition:
         return sample(self.flattened, num_of_conditions)[0]
