@@ -5,3 +5,4 @@ from decorum_generator.models.object import *
 from decorum_generator.models.room_group import *
 from decorum_generator.models.room import *
 from decorum_generator.models.style import *
+from decorum_generator.models.game import *

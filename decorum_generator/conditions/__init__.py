@@ -9,3 +9,6 @@ from decorum_generator.conditions.identical_features import *
 from decorum_generator.conditions.no_of_empty_rooms import *
 from decorum_generator.conditions.not_contain_unless_repeated import *
 from decorum_generator.conditions.room_wall_color_matches_object_colors import *
+
+from decorum_generator.conditions.condition import *
+from decorum_generator.conditions.conditions_generator import *
