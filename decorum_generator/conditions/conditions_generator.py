@@ -54,19 +54,17 @@ class ConditionsGenerator(ABC):
         self.conditions.append(condition_group)
         return condition_group
 
-    def get_random_quantifier(self) -> Quantifiers:
-        return choice(list(Quantifiers))
+    def get_flattened_contions(self) -> list[Condition]:
+        conditions = []
+        for condition in self.conditions:
+            if isinstance(condition, ConditionGroup):
+                conditions.extend(condition.flattened)
+            else:
+                conditions.append(condition)
+        return conditions
 
     @abstractmethod
     def generate(self) -> None: ...
 
-    def pick(self, num_of_conditions: int = 1) -> list[Condition]:
-        conditions = []
-        for condition in self.conditions:
-            if isinstance(condition, ConditionGroup):
-                conditions.extend(condition.pick())
-            else:
-                conditions.append(condition)
-
-        num_of_conditions = min(num_of_conditions, len(conditions))
-        return sample(conditions, num_of_conditions)
+    def pick(self) -> list[Condition]:
+        return self.get_flattened_contions()

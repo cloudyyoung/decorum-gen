@@ -32,6 +32,7 @@ class GameGenerator:
             generator = subclass(self.solution_house)
             generator.generate()
             conds = generator.pick()
+            print(subclass.__name__, conds)
             self.conditions.extend(conds)
 
     def pick_conditions(self) -> list:

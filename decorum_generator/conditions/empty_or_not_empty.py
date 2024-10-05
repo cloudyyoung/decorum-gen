@@ -1,3 +1,5 @@
+from random import sample
+from decorum_generator.conditions.condition import ConditionGroup
 from decorum_generator.conditions.conditions_generator import ConditionsGenerator
 
 
@@ -26,4 +28,5 @@ class EmptyOrNotEmpty(ConditionsGenerator):
             self.add_condition(f"The {empty_room} must be the only empty room.", 2)
 
     def pick(self):
-        return super().pick(5)
+        conditions = self.get_flattened_contions()
+        return sample(conditions, 5)
