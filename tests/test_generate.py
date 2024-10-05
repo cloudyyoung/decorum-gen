@@ -1,5 +1,5 @@
 from pprint import pprint
-from decorum_generator.conditions.condition import ConditionsGenerator
+from decorum_generator.conditions.conditions_generator import ConditionsGenerator
 from decorum_generator.models.house import House
 from decorum_generator.models.object import *
 import random

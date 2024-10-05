@@ -1,5 +1,5 @@
 from itertools import product
-from decorum_generator.conditions.condition import ConditionsGenerator
+from decorum_generator.conditions.conditions_generator import ConditionsGenerator
 from decorum_generator.conditions.utils import format_object_text
 from decorum_generator.constants.colors import Colors
 from decorum_generator.constants.objects import ObjectTypes

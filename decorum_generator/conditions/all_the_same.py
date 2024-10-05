@@ -1,9 +1,9 @@
-from decorum_generator.conditions.condition import ConditionsGenerator
+from decorum_generator.conditions.conditions_generator import ConditionsGenerator
 
 
 class AllTheSame(ConditionsGenerator):
-    def generate(self, house) -> None:
-        for room in house.rooms:
+    def generate(self) -> None:
+        for room in self.house.rooms:
             no_room_objects = room.count_objects()
             no_room_wall_colors = 1 if room.wall_color else 0
 

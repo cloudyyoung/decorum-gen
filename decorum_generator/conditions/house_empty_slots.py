@@ -1,4 +1,4 @@
-from decorum_generator.conditions.condition import ConditionsGenerator
+from decorum_generator.conditions.conditions_generator import ConditionsGenerator
 from decorum_generator.conditions.utils import QUANTIFIERS
 
 
