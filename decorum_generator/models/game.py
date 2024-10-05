@@ -35,22 +35,25 @@ class GameGenerator:
             conds = generator.pick()
             self.conditions.extend(conds)
 
+        self.conditions = list(set(self.conditions))
+
     def pick_conditions(self) -> list:
-        shuffle(self.conditions)
+        shuffled_conditions = self.conditions.copy()
+        shuffle(shuffled_conditions)
 
         knapsack_problem = LpProblem("Knapsack Problem", LpMaximize)
 
         # Decision variable: 0/1 for each condition selected?
-        x = LpVariable.dicts("condition", self.conditions, 0, 1, cat="Integer")
+        x = LpVariable.dicts("condition", shuffled_conditions, 0, 1, cat="Integer")
         # Objective function: maximize total value
         knapsack_problem += (
-            lpSum([x[c] * c.difficulty_points for c in self.conditions]),
+            lpSum([x[c] * c.difficulty_points for c in shuffled_conditions]),
             "Total_Difficulty_Points",
         )
 
         # Constraint: total difficulty points should be less than or equal to the total difficulty points
         knapsack_problem += (
-            lpSum([x[c] * c.difficulty_points for c in self.conditions])
+            lpSum([x[c] * c.difficulty_points for c in shuffled_conditions])
             <= self.total_diffilculty_points,
             "Total_Difficulty_Points_Constraint",
         )
@@ -59,12 +62,12 @@ class GameGenerator:
         # y = LpVariable("num_of_sets", 0, cat="Integer")
         # # Constraint: the number of selected conditions must be multiplier of number of players
         # knapsack_problem += (
-        #     lpSum([x[c] for c in self.conditions]) == y * self.num_of_players,
+        #     lpSum([x[c] for c in shuffled_conditions]) == y * self.num_of_players,
         #     "Number_of_Selected_Conditions_Constraint",
         # )
 
         knapsack_problem.solve()
 
-        selected_conditions = [c for c in self.conditions if x[c].value() == 1]
+        selected_conditions = [c for c in shuffled_conditions if x[c].value() == 1]
 
         return selected_conditions
