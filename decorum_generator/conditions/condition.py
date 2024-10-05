@@ -21,12 +21,12 @@ class Condition:
         return self.condition == other.condition
 
 
-class ConditionGroup(list[Condition | "ConditionGroup"]):
+class ConditionGroup(list[Condition]):
     @property
     def flattened(self) -> list[Condition]:
         conditions = []
         for condition in self:
-            if isinstance(condition, "ConditionGroup"):
+            if isinstance(condition, ConditionGroup):
                 conditions.extend(condition.flattened)
             else:
                 conditions.append(condition)
@@ -35,5 +35,6 @@ class ConditionGroup(list[Condition | "ConditionGroup"]):
     def add(self, condition_str, difficulty_points):
         self.append(Condition(condition_str, difficulty_points))
 
-    def pick(self, num_of_conditions: int = 1) -> Condition:
-        return sample(self.flattened, num_of_conditions)[0]
+    def pick(self, num_of_conditions: int = 1) -> list[Condition]:
+        num_of_conditions = min(num_of_conditions, len(self.flattened))
+        return sample(self.flattened, num_of_conditions) or []

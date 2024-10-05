@@ -26,4 +26,4 @@ class EmptyOrNotEmpty(ConditionsGenerator):
             self.add_condition(f"The {empty_room} must be the only empty room.", 2)
 
     def pick(self):
-        super().pick(5)
+        return super().pick(5)

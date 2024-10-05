@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from random import choice
+from random import choice, sample
 from typing import Iterable
 from decorum_generator.conditions.condition import Condition, ConditionGroup
 from decorum_generator.constants.quantifiers import Quantifiers
@@ -61,7 +61,12 @@ class ConditionsGenerator(ABC):
     def generate(self) -> None: ...
 
     def pick(self, num_of_conditions: int = 1) -> list[Condition]:
+        conditions = []
         for condition in self.conditions:
             if isinstance(condition, ConditionGroup):
-                return condition.pick(num_of_conditions)
-            return condition
+                conditions.extend(condition.pick())
+            else:
+                conditions.append(condition)
+
+        num_of_conditions = min(num_of_conditions, len(conditions))
+        return sample(conditions, num_of_conditions)

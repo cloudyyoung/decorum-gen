@@ -25,6 +25,8 @@ class GameGenerator:
         self.conditions = []
 
     def generate_conditions(self) -> list:
+        self.conditions = []
+
         subclasses = ConditionsGenerator.__subclasses__()
         for subclass in subclasses:
             generator = subclass(self.solution_house)
