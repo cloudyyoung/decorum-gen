@@ -15,18 +15,18 @@ class AllTheSame(ConditionsGenerator):
                 condition_str = (
                     f"Objects in the {room} must all have the same color and style."
                 )
-                group.append(condition_str, 2 + no_room_objects)
+                group.add(condition_str, 2 + no_room_objects)
 
             if room.is_identical_object_colors():
                 condition_str = f"Objects in the {room} must all have the same color."
-                group.append(condition_str, 1 + no_room_objects)
+                group.add(condition_str, 1 + no_room_objects)
 
             if room.is_identical_object_styles():
                 condition_str = f"Objects in the {room} must all have the same style."
-                group.append(condition_str, 1 + no_room_objects)
+                group.add(condition_str, 1 + no_room_objects)
 
             if room.is_identical_colors():
                 condition_str = f"Everything in the {room} must all have the same color (objects and wall color)."
-                group.append(condition_str, 1 + no_room_objects + no_room_wall_colors)
+                group.add(condition_str, 1 + no_room_objects + no_room_wall_colors)
 
             self.add_condition_group(group)
