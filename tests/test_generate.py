@@ -12,13 +12,5 @@ def test_any():
     conds = game.pick_conditions()
     pprint(conds)
 
-    with open("test_any.txt", "w") as f:
-        f.write(game.solution_house.get_display())
-        f.write("\n")
-        f.write("\n".join([str(c.__repr__()) for c in game.conditions]))
-        f.write("\n")
-        f.write("\n".join([str(c.__repr__()) for c in conds]))
-
-
 if __name__ == "__main__":
     test_any()
