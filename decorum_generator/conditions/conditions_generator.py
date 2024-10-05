@@ -63,5 +63,5 @@ class ConditionsGenerator(ABC):
     def pick(self, num_of_conditions: int = 1) -> list[Condition]:
         for condition in self.conditions:
             if isinstance(condition, ConditionGroup):
-                return condition.pick()
+                return condition.pick(num_of_conditions)
             return condition
