@@ -8,25 +8,32 @@ from pulp import LpMaximize, LpProblem, LpVariable, lpSum
 class GameGenerator:
     num_of_players: int
     total_diffilculty_points: int
-    house: House
+    starting_house: House
+    solution_house: House
     conditions: list[Condition]
 
     def __init__(self, num_of_players: int, total_diffilculty_points: int) -> None:
         self.num_of_players = num_of_players
         self.total_diffilculty_points = total_diffilculty_points
-        self.house = House()
-        self.house.randomize()
+
+        self.starting_house = House()
+        self.starting_house.randomize()
+
+        self.solution_house = House()
+        self.solution_house.randomize()
+
+        self.conditions = []
 
     def generate_conditions(self) -> list:
         subclasses = ConditionsGenerator.__subclasses__()
         for subclass in subclasses:
-            generator = subclass(self.house)
+            generator = subclass(self.solution_house)
             generator.generate()
             conds = generator.pick()
             self.conditions.extend(conds)
 
     def pick_conditions(self) -> list:
-        conditions = ConditionsGenerator.generate_conditions(self.house)
+        conditions = ConditionsGenerator.generate_conditions(self.solution_house)
 
         for t in range(0, self.num_of_players):
             knapsack_problem = LpProblem("Knapsack Problem", LpMaximize)
