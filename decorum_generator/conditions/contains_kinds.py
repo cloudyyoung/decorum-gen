@@ -8,15 +8,15 @@ from decorum_generator.models.house import House
 
 
 class ContainsKinds(ConditionsGenerator):
-    def generate(self, house: House) -> None:
-        self.generate_object_types(house)
-        self.generate_colors(house)
-        self.generate_styles(house)
+    def generate(self) -> None:
+        self.generate_object_types()
+        self.generate_colors()
+        self.generate_styles()
 
-    def generate_object_types(self, house: House) -> None:
-        no_wall_hanging = house.count_objects(object_type=ObjectTypes.WALL_HANGING)
-        no_lamp = house.count_objects(object_type=ObjectTypes.LAMP)
-        no_curio = house.count_objects(object_type=ObjectTypes.CURIO)
+    def generate_object_types(self) -> None:
+        no_wall_hanging = self.house.count_objects(object_type=ObjectTypes.WALL_HANGING)
+        no_lamp = self.house.count_objects(object_type=ObjectTypes.LAMP)
+        no_curio = self.house.count_objects(object_type=ObjectTypes.CURIO)
 
         smallest_no = min(no_wall_hanging, no_lamp, no_curio)
         largest_no = max(no_wall_hanging, no_lamp, no_curio)
@@ -43,11 +43,11 @@ class ContainsKinds(ConditionsGenerator):
                 3,
             )
 
-    def generate_colors(self, house: House) -> None:
-        no_red = house.count_objects(color=Colors.RED)
-        no_green = house.count_objects(color=Colors.GREEN)
-        no_blue = house.count_objects(color=Colors.BLUE)
-        no_yellow = house.count_objects(color=Colors.YELLOW)
+    def generate_colors(self) -> None:
+        no_red = self.house.count_objects(color=Colors.RED)
+        no_green = self.house.count_objects(color=Colors.GREEN)
+        no_blue = self.house.count_objects(color=Colors.BLUE)
+        no_yellow = self.house.count_objects(color=Colors.YELLOW)
 
         smallest_no = min(no_red, no_green, no_blue, no_yellow)
         largest_no = max(no_red, no_green, no_blue, no_yellow)
@@ -81,11 +81,11 @@ class ContainsKinds(ConditionsGenerator):
             )
             same_no_group.add(condition_str, 3)
 
-    def generate_styles(self, house: House) -> None:
-        no_modern = house.count_objects(style=Styles.MODERN)
-        no_antique = house.count_objects(style=Styles.ANTIQUE)
-        no_retro = house.count_objects(style=Styles.RETRO)
-        no_unusual = house.count_objects(style=Styles.UNUSUAL)
+    def generate_styles(self) -> None:
+        no_modern = self.house.count_objects(style=Styles.MODERN)
+        no_antique = self.house.count_objects(style=Styles.ANTIQUE)
+        no_retro = self.house.count_objects(style=Styles.RETRO)
+        no_unusual = self.house.count_objects(style=Styles.UNUSUAL)
 
         smallest_no = min(no_modern, no_antique, no_retro, no_unusual)
         largest_no = max(no_modern, no_antique, no_retro, no_unusual)

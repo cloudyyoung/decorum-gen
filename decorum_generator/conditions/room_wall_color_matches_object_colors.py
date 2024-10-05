@@ -5,13 +5,13 @@ from decorum_generator.models.room_group import RoomGroup
 
 
 class RoomWallColorMatchesObjectColors(ConditionsGenerator):
-    def generate(self, house) -> None:
+    def generate(self) -> None:
         # Rooms
-        for room in house.rooms:
+        for room in self.house.rooms:
             self.generate_room(room)
 
         # RoomGroups
-        for room_group in house.room_groups:
+        for room_group in self.house.room_groups:
             self.generate_room(room_group)
 
     def generate_room(self, room: Room | RoomGroup) -> None:

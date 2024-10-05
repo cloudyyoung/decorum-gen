@@ -6,10 +6,10 @@ from decorum_generator.constants.styles import Styles
 
 
 class ContainsAll(ConditionsGenerator):
-    def generate(self, house) -> None:
+    def generate(self) -> None:
         # Each object type
         for object_type in list(ObjectTypes):
-            objects = house.get_objects(object_type=object_type)
+            objects = self.house.get_objects(object_type=object_type)
             unique_objects = set(objects)
             no_unique_objects = len(unique_objects)
 
@@ -20,7 +20,7 @@ class ContainsAll(ConditionsGenerator):
 
         # Each color
         for color in list(Colors):
-            objects = house.get_objects(color=color)
+            objects = self.house.get_objects(color=color)
             unique_objects = set(objects)
             no_unique_objects = len(unique_objects)
 
@@ -31,7 +31,7 @@ class ContainsAll(ConditionsGenerator):
 
         # Each style
         for style in list(Styles):
-            objects = house.get_objects(style=style)
+            objects = self.house.get_objects(style=style)
             unique_objects = set(objects)
             no_unique_objects = len(unique_objects)
 

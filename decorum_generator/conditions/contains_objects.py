@@ -11,13 +11,13 @@ from decorum_generator.models.room_group import RoomGroup
 
 
 class ContainsObjects(ConditionsGenerator):
-    def generate(self, house: House) -> None:
+    def generate(self) -> None:
         # Individual rooms
-        for room in house.rooms:
+        for room in self.house.rooms:
             self.generate_room_contains(room)
 
         # Room groups
-        for room_group in house.room_groups:
+        for room_group in self.house.room_groups:
             self.generate_room_contains(room_group)
 
     def generate_room_contains(self, room: Room | RoomGroup) -> None:

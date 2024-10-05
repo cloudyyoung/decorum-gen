@@ -9,10 +9,10 @@ from decorum_generator.models.room_group import RoomGroup
 
 
 class CommonFeatures(ConditionsGenerator):
-    def generate(self, house) -> None:
-        self.generate_common_features(house)
+    def generate(self) -> None:
+        self.generate_common_features(self.house)
 
-        for room_group in house.room_groups:
+        for room_group in self.house.room_groups:
             self.generate_common_features(room_group)
 
     def generate_common_features(self, room_group: RoomGroup | House) -> None:
