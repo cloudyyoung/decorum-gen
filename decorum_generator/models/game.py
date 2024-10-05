@@ -1,3 +1,4 @@
+from random import shuffle
 from decorum_generator.conditions.condition import Condition
 from decorum_generator.conditions.conditions_generator import ConditionsGenerator
 from decorum_generator.models.house import House
@@ -32,10 +33,11 @@ class GameGenerator:
             generator = subclass(self.solution_house)
             generator.generate()
             conds = generator.pick()
-            print(subclass.__name__, conds)
             self.conditions.extend(conds)
 
     def pick_conditions(self) -> list:
+        shuffle(self.conditions)
+
         knapsack_problem = LpProblem("Knapsack Problem", LpMaximize)
 
         # Decision variable: 0/1 for each condition selected?
