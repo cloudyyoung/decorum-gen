@@ -1,4 +1,4 @@
-from random import choice, sample
+from random import sample
 
 
 class Condition:
@@ -21,9 +21,16 @@ class Condition:
         return self.condition == other.condition
 
 
-class ConditionGroup(list[Condition]):
-    def pick_condition(self) -> Condition:
-        return choice(self)
+class ConditionGroup(list[Condition | "ConditionGroup"]):
+    @property
+    def flattened(self) -> list[Condition]:
+        conditions = []
+        for condition in self:
+            if isinstance(condition, "ConditionGroup"):
+                conditions.extend(condition.get_flattened())
+            else:
+                conditions.append(condition)
+        return conditions
 
-    def pick_conditions(self, num_of_conditions: int) -> Condition:
-        return sample(self, num_of_conditions)[0]
+    def pick(self, num_of_conditions: int = 1) -> Condition:
+        return sample(self.flattened, num_of_conditions)[0]
