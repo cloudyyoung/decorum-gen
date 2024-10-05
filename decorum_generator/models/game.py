@@ -1,8 +1,5 @@
-from decorum_generator.conditions.condition import (
-    Condition,
-    ConditionGroup,
-    ConditionsGenerator,
-)
+from decorum_generator.conditions.condition import Condition, ConditionGroup
+from decorum_generator.conditions.condition_generator import ConditionsGenerator
 from decorum_generator.models.house import House
 
 from pulp import LpMaximize, LpProblem, LpVariable, lpSum
@@ -12,7 +9,7 @@ class GameGenerator:
     num_of_players: int
     total_diffilculty_points: int
     house: House
-    conditions: list[Condition | ConditionGroup]
+    conditions: list[Condition]
 
     def __init__(self, num_of_players: int, total_diffilculty_points: int) -> None:
         self.num_of_players = num_of_players
@@ -23,9 +20,10 @@ class GameGenerator:
     def generate_conditions(self) -> list:
         subclasses = ConditionsGenerator.__subclasses__()
         for subclass in subclasses:
-            generator = subclass()
-            generator.generate(self.house)
-            self.conditions.extend(generator.conditions)
+            generator = subclass(self.house)
+            generator.generate()
+            conds = generator.pick()
+            self.conditions.extend(conds)
 
     def pick_conditions(self) -> list:
         conditions = ConditionsGenerator.generate_conditions(self.house)
