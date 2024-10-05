@@ -55,5 +55,8 @@ class ConditionsGenerator(ABC):
     @abstractmethod
     def generate(self) -> None: ...
 
-    @abstractmethod
-    def pick(self) -> list[Condition]: ...
+    def pick(self) -> list[Condition]:
+        for condition in self.conditions:
+            if isinstance(condition, ConditionGroup):
+                return condition.pick()
+            return condition
