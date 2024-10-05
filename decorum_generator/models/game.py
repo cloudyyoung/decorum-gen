@@ -1,9 +1,9 @@
 from random import shuffle
+from pulp import LpMaximize, LpProblem, LpVariable, lpSum, PULP_CBC_CMD
+
 from decorum_generator.conditions.condition import Condition
 from decorum_generator.conditions.conditions_generator import ConditionsGenerator
 from decorum_generator.models.house import House
-
-from pulp import LpMaximize, LpProblem, LpVariable, lpSum
 
 
 class GameGenerator:
@@ -41,7 +41,7 @@ class GameGenerator:
         shuffled_conditions = self.conditions.copy()
         shuffle(shuffled_conditions)
 
-        knapsack_problem = LpProblem("Knapsack Problem", LpMaximize)
+        knapsack_problem = LpProblem("Knapsack_Problem", LpMaximize)
 
         # Decision variable: 0/1 for each condition selected?
         x = LpVariable.dicts("condition", shuffled_conditions, 0, 1, cat="Integer")
@@ -66,7 +66,8 @@ class GameGenerator:
             "Number_of_Selected_Conditions_Constraint",
         )
 
-        knapsack_problem.solve()
+        solver = PULP_CBC_CMD(msg=False)
+        knapsack_problem.solve(solver)
 
         selected_conditions = [c for c in shuffled_conditions if x[c].value() == 1]
 
