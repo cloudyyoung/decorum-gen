@@ -20,7 +20,8 @@ def test_any():
     house.kitchen.curio = YellowRetroCurio()
     print(house.get_display())
 
-    conds = ConditionsGenerator.pick_conditions(house, 3, 120)
+    conds = ConditionsGenerator.generate_conditions(house)
+    # conds = ConditionsGenerator.pick_conditions(house, 3, 120)
     pprint(conds)
 
 

@@ -40,13 +40,11 @@ class RoomWallColorMatchesObjectColors(ConditionsGenerator):
             self.add_condition(condition_str, 3)
 
         if no_matching_objects >= 1:
-            for matching_obj in matching_objects:
-                subject_str = format_object_text(
-                    2, object_type=matching_obj.object_type
-                )
-                condition_str = f"The wall color{suffix} of the {room} must match the color of the {subject_str} in the room{suffix}."
-                self.add_condition(condition_str, 3)
+            for obj in matching_objects:
+                subject_str = format_object_text(2, object_type=obj.object_type)
+                condition_str_a = f"The wall color{suffix} of the {room} must match the color of the {subject_str} in the room{suffix}."
 
-                subject_str = format_object_text(2, style=matching_obj.style)
-                condition_str = f"The wall color{suffix} of the {room} must match the color of one of the {subject_str} in the room{suffix}."
-                self.add_condition(condition_str, 4)
+                subject_str = format_object_text(2, style=obj.style)
+                condition_str_b = f"The wall color{suffix} of the {room} must match the color of one of the {subject_str} in the room{suffix}."
+
+                self.add_conditions((condition_str_a, 3), (condition_str_b, 4))
