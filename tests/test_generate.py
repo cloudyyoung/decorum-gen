@@ -3,7 +3,7 @@ from decorum_generator.models.game import GameGenerator
 
 
 def test_any():
-    game = GameGenerator(3, 40)
+    game = GameGenerator(3, 6)
     print(game.solution_house.get_display())
 
     game.generate_conditions()
@@ -11,6 +11,9 @@ def test_any():
 
     conds = game.pick_conditions()
     pprint(conds)
+
+    game.distribute_conditions()
+    pprint(game.players_conditions)
 
 if __name__ == "__main__":
     test_any()

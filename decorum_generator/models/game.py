@@ -9,9 +9,13 @@ from decorum_generator.models.house import House
 class GameGenerator:
     num_of_players: int
     total_diffilculty_points: int
+
     starting_house: House
     solution_house: House
+
     conditions: list[Condition]
+    selected_conditions: list[Condition]
+    players_conditions: list[list[Condition]]
 
     def __init__(self, num_of_players: int, total_diffilculty_points: int) -> None:
         self.num_of_players = num_of_players
@@ -36,6 +40,7 @@ class GameGenerator:
             self.conditions.extend(conds)
 
         self.conditions = list(set(self.conditions))
+        return self.conditions
 
     def pick_conditions(self) -> list:
         shuffled_conditions = self.conditions.copy()
@@ -70,5 +75,13 @@ class GameGenerator:
         knapsack_problem.solve(solver)
 
         selected_conditions = [c for c in shuffled_conditions if x[c].value() == 1]
+        self.selected_conditions = selected_conditions
+        return self.selected_conditions
 
-        return selected_conditions
+    def distribute_conditions(self) -> list:
+        self.players_conditions = [[] for _ in range(self.num_of_players)]
+
+        for i, condition in enumerate(self.selected_conditions):
+            self.players_conditions[i % self.num_of_players].append(condition)
+
+        return self.players_conditions
