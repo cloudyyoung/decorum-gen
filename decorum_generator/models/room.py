@@ -124,6 +124,14 @@ class Room(ABC):
                 object_type=ObjectTypes.WALL_HANGING
             )
 
+    def dict(self):
+        return {
+            "wall_color": self.wall_color,
+            "lamp": self.lamp.dict() if self.lamp else None,
+            "curio": self.curio.dict() if self.curio else None,
+            "wall_hanging": self.wall_hanging.dict() if self.wall_hanging else None,
+        }
+
 
 class Bathroom(Room):
     def __init__(self):

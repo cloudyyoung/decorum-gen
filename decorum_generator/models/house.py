@@ -63,3 +63,11 @@ class House(RoomGroup):
         self.bathroom.randomize()
         self.living_room.randomize()
         self.kitchen.randomize()
+
+    def dict(self):
+        return {
+            "bedroom": self.bedroom.dict(),
+            "bathroom": self.bathroom.dict(),
+            "living_room": self.living_room.dict(),
+            "kitchen": self.kitchen.dict(),
+        }
