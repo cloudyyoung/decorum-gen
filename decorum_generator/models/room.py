@@ -126,10 +126,10 @@ class Room(ABC):
 
     def dict(self):
         return {
-            "wall_color": self.wall_color,
-            "lamp": self.lamp.dict() if self.lamp else None,
-            "curio": self.curio.dict() if self.curio else None,
-            "wall_hanging": self.wall_hanging.dict() if self.wall_hanging else None,
+            "wall_color": str(self.wall_color) if self.wall_color else None,
+            "lamp": str(self.lamp) if self.lamp else None,
+            "curio": str(self.curio) if self.curio else None,
+            "wall_hanging": str(self.wall_hanging) if self.wall_hanging else None,
         }
 
 
