@@ -63,14 +63,6 @@ class GameGenerator:
             "Total_Difficulty_Points_Constraint",
         )
 
-        # Decision variable: number of sets
-        y = LpVariable("num_of_sets", 0, cat="Integer")
-        # Constraint: the number of selected conditions must be multiplier of number of players
-        knapsack_problem += (
-            lpSum([x[c] for c in shuffled_conditions]) == y * self.num_of_players,
-            "Number_of_Selected_Conditions_Constraint",
-        )
-
         solver = PULP_CBC_CMD(msg=False)
         knapsack_problem.solve(solver)
 
