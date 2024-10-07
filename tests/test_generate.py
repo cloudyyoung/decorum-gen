@@ -1,9 +1,9 @@
 from pprint import pprint
-from decorum_generator.models.game import GameGenerator
+from decorum_generator.models.scenario import ScenarioGenerator
 
 
 def test_any():
-    game = GameGenerator(3, 72)
+    game = ScenarioGenerator(3, 72)
     print(game.solution_house.get_display())
 
     game.generate_conditions()

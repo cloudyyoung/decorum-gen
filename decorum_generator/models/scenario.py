@@ -6,7 +6,7 @@ from decorum_generator.conditions.conditions_generator import ConditionsGenerato
 from decorum_generator.models.house import House
 
 
-class GameGenerator:
+class ScenarioGenerator:
     num_of_players: int
     total_difficulty_points: int
 
