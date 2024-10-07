@@ -1,1 +1,1 @@
-from decorum_generator.models import GameGenerator
+from decorum_generator.models import ScenarioGenerator
