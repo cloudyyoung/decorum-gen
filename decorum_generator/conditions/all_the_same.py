@@ -1,4 +1,3 @@
-from decorum_generator.conditions.condition import ConditionGroup
 from decorum_generator.conditions.conditions_generator import ConditionsGenerator
 
 
